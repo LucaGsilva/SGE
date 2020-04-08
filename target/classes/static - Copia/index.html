@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="_js\script.js"></script>
+</head>
+<body>
+    
+
+    <form id="form">
+    	<label>Nome</label> </br>
+        <input type="text" id="nome" placeholder="Digite seu nome"> </br>
+        <label>Email</label> </br>
+        <input type="email" id="email" placeholder="exemplo@dominio.com" required> </br>
+        <input type="submit" value="Enviar" onclick="enviar()">
+    </form>
+    
+    </br>
+    
+    <form">
+    <label>Digite o Codigo do usuario</label> </br>
+    <input type="number" value="1" min="1" id="cod">
+    <input type="submit" value="Buscar" onclick="pegar()">
+    </form>
+    
+    </br> </br>
+    
+    <div id="resultado">
+    <label>Usuraio</label> </br>
+    <input type="text" id="usuario_user"> </br>
+    <label>email</label> </br>
+    <input type="text" id="email_user">
+    </div>
+    
+
+
+</body>
+</html>

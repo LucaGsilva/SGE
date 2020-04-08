@@ -16,8 +16,6 @@
 *
 *------------------------------------------------------------------------------------------------ */
 
-
-
 package com.sge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +35,22 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepositiry rep;
 
-	
 	public void addUsuario(@RequestBody Usuario user) {
 
 		BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+		UsuarioValidate validate = new UsuarioValidate();
 
-		if (user.getPassword() == null || user.getPassword().equals("******************")) {
-			user.setPassword(rep.findById(user.getId()).get().getPassword());
+		if (validate.ValidaUsuario(user)) {
+			if (user.getPassword() == null || user.getPassword().equals("******************")) {
+				user.setPassword(rep.findById(user.getId()).get().getPassword());
 
-		} else {
+			} else {
 
-			user.setPassword(encode.encode(user.getPassword()));
+				user.setPassword(encode.encode(user.getPassword()));
+			}
+
+			rep.save(user);
 		}
-
-		rep.save(user);
 
 	}
 
@@ -66,6 +66,7 @@ public class UsuarioController {
 		return rep.findById(id);
 
 	}
+
 	@GetMapping("/show/login/{login}")
 	public Usuario showLogin(@PathVariable(value = "login") String login) {
 		return rep.findByLogin(login);

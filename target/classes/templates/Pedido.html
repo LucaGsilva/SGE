@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAUSAM</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!--Fonte CSS-->
+  <link rel="stylesheet" href="css/pedido/fontes.css">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!--Meu Css-->
+  <link href="DataTables/DataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="css/pedido/style.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper">
+
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas"><img src="img/babydoll.png"></i>
+        </div>
+        <div id="nome_empresa" class="sidebar-brand-text mx-3"> KauSam</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item" id="Menu_Dashboard">
+        <a class="nav-link" href="Index">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!--Menu Pedido-->
+      <li class="nav-item" id="Menu_Pedido">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#id_pedido" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fas fa-boxes" id="icon_pedido"></i>
+          <span>Pedido</span>
+        </a>
+        <div id="id_pedido" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pedido:</h6>
+            <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
+            <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
+            <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
+          </div>
+        </div>
+      </li>
+
+      <!--Menu Mercadoria-->
+
+
+
+      <li class="nav-item" id="Menu_Mercadoria">
+        <a class="nav-link" href="Mercadoria">
+          <i class="fas fa-fw fas fa-barcode"></i>
+          <span>Mercadoria</span></a>
+      </li>
+      <!-- FIM Menu Mercadoria-->
+
+      <!--Menu Vendedor-->
+      <li class="nav-item" id="Menu_Vendedor">
+        <a class="nav-link" href="Vendedor">
+          <i class="fas fa-fw fas fa-user-tag"></i>
+          <span>Vendedor</span></a>
+      </li>
+      <!--FIM Menu Vendedor-->
+
+      <!--Menu Cliente-->
+
+      <li class="nav-item" id="Menu_Cliente">
+        <a class="nav-link" href="Cliente">
+          <i class="fas fa-fw far fa-address-book"></i>
+          <span>Cliente</span></a>
+      </li>
+
+      <!--FIM Menu Cliente-->
+
+      <!--Menu Usuario-->
+
+      <li class="nav-item" id="Menu_Usuario">
+        <a class="nav-link" href="Usuario">
+          <i class="fas fa-fw fas fa-user"></i>
+          <span>Usuario</span></a>
+      </li>
+
+      <!--FIM Menu Usuario-->
+
+      <!--Menu Estoque-->
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="Estoque" id="Menu_Estoque">
+          <i class="fas fa-fw fas fa-warehouse"></i>
+          <span>Estoque</span></a>
+      </li>
+      <!--FIM Menu Estoque-->
+
+      <!--Menu Titulos-->
+      <li class="nav-item" id="Menu_Titulo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id_titulo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fas fa-hand-holding-usd"></i>
+          <span>Titulos</span>
+        </a>
+        <div id="id_titulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Titulos:</h6>
+            <a class="collapse-item" href="Titulo/Aberto" id="Menu_Titulo_Aberto">Titulos Abertos</a>
+            <a class="collapse-item" href="Titulo/liquidado" id="Menu_Titulo_Liquidado">Titulos Liquidados</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!--PARTE SUPERIOR-->
+
+
+    <!-- Content Wrapper -->
+
+    <!--MODAL PERCENTUAL DE DESCONTO-->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <div class="modal" tabindex="-1" role="dialog" id="modal_validate">
+        <div class="modal-dialog" role="document">
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert">
+              <div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <h6 class="modal-title" id="modal_titulo_desconto">
+                <span class="Mensagem_modal"></span>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--FIM MODAL PERCENTUAL DE DESCONTO-->
+
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="nome_usuario"></span>
+                <img class="img-profile rounded-circle" src="img\user.png">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+        </nav>
+        <!--FIM PARTE SUPERIOR-->
+
+
+        <!-- INICIO MODAL VENDEDOR -->
+
+        <div class="modal fade modal-vendedor" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+          aria-hidden="true" id="modelo-cadastro">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Vendedor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="btnclose">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <!-- INICIO TABELA DE VENDEDOR -->
+
+                <div class="card shadow mb-4">
+
+                  <div class="card-body">
+                    <button class="btn btn-success btn-custom" id="btnselecionar" data-dismiss="modal">
+                      <i class="fas fa-check-square"></i>
+                      Selecionar
+                    </button>
+
+                    <div>
+                      <div class="dropdown-divider"></div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="tabela_vendedor" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Codigo</th>
+                              <th>Nome</th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                          </tfoot>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--FIM TABELA DE VENDEDOR-->
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- FIM MODAL VENDEDOR-->
+
+
+        <!-- INICIO MODAL CLIENTE -->
+
+        <div class="modal fade modal-cliente" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+          aria-hidden="true" id="modelo-cadastro">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="btnclose">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+
+                <!-- INICIO TABELA DE CLIENTE -->
+                <div class="card shadow mb-4">
+
+                  <div class="card-body">
+                    <button class="btn btn-success btn-custom" id="btnselecionar_cliente" data-dismiss="modal">
+                      <i class="fas fa-check-square"></i>
+                      Selecionar
+                    </button>
+
+                    <div>
+                      <div class="dropdown-divider"></div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="tabela_cliente" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Codigo</th>
+                              <th>Nome</th>
+                              <th>Cidade</th>
+                              <th>Estado</th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                          </tfoot>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--FIM TABELA DE CLIENTE-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FIM MODAL CLIENTE-->
+
+
+        <!-- INICIO MODAL MERCADORIA -->
+
+        <div class="modal fade modal-mercadoria" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+          aria-hidden="true" id="modelo-cadastro">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Mercadoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="btnclose">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+
+                <!-- INICIO TABELA DE MERCADORIA -->
+                <div class="card shadow mb-4">
+
+                  <div class="card-body">
+                    <button class="btn btn-success btn-custom" id="btnselecionar_mercadoria" data-dismiss="modal">
+                      <i class="fas fa-check-square"></i>
+                      Selecionar
+                    </button>
+
+                    <div>
+                      <div class="dropdown-divider"></div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="tabela_mercadoria" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Codigo</th>
+                              <th>Nome</th>
+                              <th>Preço</th>
+                              <th>Cod. Barras</th>
+                              <th>Estoque</th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Cod. Barras</th>
+                            <th>Estoque</th>
+                          </tfoot>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--FIM TABELA DE MERCADORIA-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FIM MODAL MERCADORIA-->
+
+
+
+
+        <!-- Inicio Pedido-->
+        <div class="container">
+
+          <div>
+            <h2 class="m-0 font-weight-bold text-primary">Pedido</h2>
+            <div class="dropdown-divider"></div>
+          </div>
+
+
+          <div class="form-row">
+
+            <div class="form-group col-md-2">
+              <label>Cliente</label>
+              <div class="left-inner-addon">
+                <i class="fa fa-search" data-toggle="modal" id="PesquisaCliente" data-target=".modal-cliente"></i>
+                <input type="text" class="form-control" id="CodigoCliente">
+              </div>
+
+            </div>
+
+            <div class="form-group col-md-4 nome">
+              <label class="Nomes" id="NomeCliente"></label>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Vendedor</label>
+              <div class="left-inner-addon">
+                <i class="fa fa-search" data-toggle="modal" id="PesquisaVendedor" data-target=".modal-vendedor"></i>
+                <input type="number" class="form-control" id="CodigoVendedor">
+              </div>
+            </div>
+
+            <div class="form-group col-md-4 nome">
+              <h6 class="Nomes" id="NomeVendedor"></h6>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Forma de Pagamento</label>
+              <select id="FormaPagamento" class="form-control">
+                <option>Dinheiro</option>
+                <option>Cartao</option>
+                <option>Prazo</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label>Desconto</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-percentage"></i>
+                <input type="number" max="99.99" min="0" class="form-control" id="percent_desconto" value="0">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label>Valor Desconto</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-dollar-sign"></i>
+                <input type="text" class="form-control" disabled value="0" id="valor_desconto">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label>Total Bruto</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-dollar-sign"></i>
+                <input type="text" class="form-control" disabled value="0" id="total_bruto">
+              </div>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label>Total liquido</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-dollar-sign"></i>
+                <input type="text" class="form-control" disabled value="0" id="total_liquido">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label>Itens</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-shopping-cart"></i>
+                <input type="number" class="form-control" disabled value="0" id="total_itens">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label>Total de Unidades</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-cart-arrow-down"></i>
+                <input type="text" class="form-control" disabled value="0" id="total_unidades">
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <div class="dropdown-divider"></div>
+            </div>
+
+
+            <div class="form-group col-md-2">
+              <label>Cod. Mercadoria</label>
+              <div class="left-inner-addon">
+                <i class="fas fa-search" data-toggle="modal" id="PesquisaMercadoria"
+                  data-target=".modal-mercadoria"></i>
+                <input type="number" class="form-control" id="CodigoMercadoria">
+              </div>
+            </div>
+
+            <div class="form-group col-md-5 nome">
+              <label class="Nomes" id="Descricao"></label>
+            </div>
+
+            <div class="form-group col-md-1">
+              <label>Quantidade</label>
+              <div>
+                <input type="number" class="form-control" value="0" id="adicionar_quantidade">
+              </div>
+            </div>
+
+            <div class="form-group col-md-2 adicionar">
+              <button class="btn btn-success btn-custom" id="btnadd">Adicionar</button>
+            </div>
+
+            <div class="form-group col-md-2 adicionar">
+              <button class="btn btn-primary btn-custom" id="finalizar_venda">
+                <i class="fas fa-cash-register"></i>
+                Finalizar Pedido
+              </button>
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <!--Fim Pedido-->
+
+        <!-- DIVISOR -->
+        <div class="dropdown-divider"></div>
+
+        <!-- INICIO TABELA DE PEDIDOS -->
+        <div class="container">
+
+
+          <div class="card shadow mb-4">
+
+            <div class="card-body">
+              <div class="row">
+                <button class="btn btn-danger btn-custom" id="btndel">
+                  <i class="fas fa-trash"></i>
+                  Excluir
+                </button>
+              </div>
+              <div>
+                <div class="dropdown-divider"></div>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="tabela_pedido" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Codigo</th>
+                        <th>Mercadoria</th>
+                        <th>QTD</th>
+                        <th>Valor Unitario</th>
+                        <th>Valor Total</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <th>Codigo</th>
+                      <th>Mercadoria</th>
+                      <th>QTD</th>
+                      <th>Valor Unitario</th>
+                      <th>Valor Total</th>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--FIM TABELA DE PEDIDOS-->
+
+
+        <!-- /.container-fluid -->
+
+      </div>
+
+
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Deseja Sair?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="DataTables/jquery.dataTables.min.js"></script>
+  <script src="DataTables/dataTables.bootstrap4.min.js"></script>
+
+  <!--Meu Script-->
+  <script src="js/pedido/script.js"></script>
+  <script src="js/pedido/ped_vendedor_script.js"></script>
+  <script src="js/pedido/ped_cliente_script.js"></script>
+  <script src="js/pedido/ped_mercadoria_script.js"></script>
+  <script src="js/pedido/pedido.js"></script>
+  <script src="js/pedido/validate_pedido.js"></script>
+  <script src="js/pedido/validate.js"></script>
+  <script src="js/pedido/jquery.mask.js"></script>
+  <script src="js/pedido/jquery.mask.min.js"></script>
+
+  <!--Fonte do Google-->
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+
+
+</body>
+
+</html>
