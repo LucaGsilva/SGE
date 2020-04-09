@@ -30,6 +30,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Login userPermissao;
 	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
@@ -47,14 +48,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Pedido/**").hasRole("PG_PEDIDO_NOVO")
 			.antMatchers("/Titulo/Aberto*/**").hasRole("PG_TITULO_ABERTO")
 			.antMatchers("/Titulo/Liquidado*/**").hasRole("PG_TITULO_LIQUIDADO")
-			.anyRequest()
-			.authenticated()
 			.and()
 			.formLogin()
+			.loginPage("/login").permitAll()
+			.defaultSuccessUrl("/",true)
 			.and()
-			.sessionManagement().maximumSessions(1).expiredUrl("/Login");
+			.sessionManagement().maximumSessions(1).expiredUrl("/login");
+		
 
 	}
+	
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
