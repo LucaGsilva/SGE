@@ -155,7 +155,7 @@ $(document).ready(function () {
     // Adiciona Linha
     $("#btnsalva").on("click", function () {
         salvar();
-        limparDados();
+
     });
 
     //Limpar os dados fechar
@@ -177,42 +177,45 @@ $(document).ready(function () {
     //Envia dados por metodo Post
     function salvar() {
 
-        dados = table.rows('.selec').data();
-        var nome = document.getElementById('nome');
-        var ativo = document.getElementById('ativo');
+        if (Validate()) {
+            dados = table.rows('.selec').data();
+            var nome = document.getElementById('nome');
+            var ativo = document.getElementById('ativo');
 
-        try {
-            cod = dados[0].id;
-        } catch (error) {
-            cod = 0;
-        }
+            try {
+                cod = dados[0].id;
+            } catch (error) {
+                cod = 0;
+            }
 
-        if (nome.value == null || ativo.value == null) {
-            alert("Dados inválido, por favor preencha o campo")
-        }
+            if (nome.value == null || ativo.value == null) {
+                alert("Dados inválido, por favor preencha o campo")
+            }
 
-        else {
-            $.ajax({
-                url: "/Vendedores/add",
-                type: "POST",
-                //data: JSON.stringify({nome:nome.value,email:email.value}),
-                data: JSON.stringify({
-                    id: cod,
-                    nome: nome.value,
-                    ativo: ativo.value
-                }),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    alert("Dados Gravado");
-                }
+            else {
+                $.ajax({
+                    url: "/Vendedores/add",
+                    type: "POST",
+                    //data: JSON.stringify({nome:nome.value,email:email.value}),
+                    data: JSON.stringify({
+                        id: cod,
+                        nome: nome.value,
+                        ativo: ativo.value
+                    }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        alert("Dados Gravado");
+                    }
 
-            });;
-            DesabilitaBtn();
-            setTimeout(function () {
-                LimparTabela();
-                PreencheTabela();
-            }, 140);
+                });;
+                DesabilitaBtn();
+                limparDados();
+                setTimeout(function () {
+                    LimparTabela();
+                    PreencheTabela();
+                }, 140);
+            }
         }
 
     };
@@ -241,4 +244,33 @@ $(document).ready(function () {
         $('#ativo').val(dados[0].ativo);
     });
 
+    $("#nome").blur(function (e) {
+        if ($("#nome").val().trim() != '') {
+            $('#nome').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
+
+    });
+
+    function ValidateVendedor() {
+        if ($("#nome").val().trim() == '') {
+
+            document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O nome deve ser preenchido';
+            $('#modal_validate').modal({
+                show: true
+            })
+            $(".modal-backdrop").css("backgroud-color", "transparent");
+            $('#nome').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+            return false;
+        }
+        else {
+            $('#nome').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+            return true;
+        }
+    }
+
+    function Validate() {
+        if (ValidateVendedor()) {
+            return true;
+        }
+    }
 });

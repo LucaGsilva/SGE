@@ -5,7 +5,7 @@ $(function () {
         try {
             nome = dados.usuario.nome
             $('#nome_usuario').append(nome);
-            $('#bvnd').append ('Bem Vindo,' + nome)
+            $('#bvnd').append ('Bem-Vindo,' + nome)
 
             if (dados.dashboard == 'N') {
                 document.getElementById('Menu_Dashboard').style.display = "none";
@@ -61,7 +61,7 @@ $(function () {
 
         } catch (e) {
             $('#nome_usuario').append('');
-            $('#bvnd').append ('Bem Vindo')
+            $('#bvnd').append ('Bem-Vindo')
         }
 
     });

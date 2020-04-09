@@ -243,11 +243,15 @@ $(document).ready(function () {
     };
 
     $("#Descricao").blur(function () {
-        ValidateDescricao();
+        if ($("#Descricao").val().trim() != '') {
+            $('#Descricao').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
     });
 
     $("#Preco").blur(function () {
-        ValidatePreco();
+        if ($("#Preco").val().trim() != '') {
+            $('#Preco').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
     });
 
     //Limpar dados do Cadastro

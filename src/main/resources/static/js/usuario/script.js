@@ -296,17 +296,24 @@ $(document).ready(function () {
     }
 
     $("#Nome").blur(function (e) {
-        ValidateNome();
+
+        if ($("#Nome").val().trim() != '') {
+            $('#Nome').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
 
     });
 
     $("#Login").blur(function (e) {
-        ValidateLogin();
+        if ($("#Login").val().trim() != '') {
+            $('#Login').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
 
     });
 
     $("#Password").blur(function (e) {
-        ValidatePassword();
+        if ($("#Password").val().trim() != '') {
+            $('#Password').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
 
     });
 
@@ -370,7 +377,7 @@ $(document).ready(function () {
 
     function Validate() {
 
-        if ( ValidateNome() && ValidateLogin() &&  ValidatePassword()){
+        if (ValidateNome() && ValidateLogin() && ValidatePassword()) {
             return true;
         }
         else {

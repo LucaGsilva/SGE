@@ -263,6 +263,7 @@ $(document).ready(function () {
                 });;
                 limparDados();
                 DesabilitaBtn();
+                limparDados();
                 setTimeout(function () {
                     LimparTabela();
                     PreencheTabela();
@@ -325,7 +326,9 @@ $(document).ready(function () {
     }
 
     $("#Nome").blur(function () {
-        Validade();
+        if ($("#Nome").val().trim() != '') {
+            $('#Nome').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        }
     });
 
     $("#Cep").blur(function () {
