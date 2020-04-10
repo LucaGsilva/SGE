@@ -11,6 +11,7 @@ $(document).ready(function () {
     var quantidade = 0;
     var valor_total = 0;
     var tabela = $("#tabela_pedido").DataTable();
+    var ta = $("#tabela_cliente").DataTable();
 
     var mercadoria_id = 0;
     var descricao = '';
@@ -217,6 +218,10 @@ $(document).ready(function () {
 
     //Valida Desconto
     $('#percent_desconto').blur(function () {
+        ValidateDesconto();
+    });
+
+    function ValidateDesconto() {
 
         if ($('#percent_desconto').val() > 99.99) {
             document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O desconto maximo permitido é de 99.99%';
@@ -244,14 +249,16 @@ $(document).ready(function () {
             AjustaValores();
 
         }
-
-    });
+    }
 
 
     $("#finalizar_venda").click(function () {
 
         if (TotalizaItens().val() > 0) {
 
+            if (ValidateCliente() && ValidateVendedor()) {
+
+            }
         }
         else {
             document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Não é possivel fechar pedido sem itens';
@@ -281,5 +288,89 @@ $(document).ready(function () {
         }
 
     }
+
+
+    function ValidateCliente() {
+
+        if ($('#CodigoCliente').val().trim() != '') {
+            cliente = $('#CodigoCliente').val();
+        }
+        else {
+            cliente = 0;
+        }
+
+        $.getJSON("Clientes/show/" + cliente, function (dados, status) {
+
+
+            try {
+
+                if (dados[0] == null) {
+                    document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Cliente não encontrado';
+                    $('#modal_validate').modal({
+                        show: true
+                    });
+                    $(".modal-backdrop").addClass("fundo");
+                    $('#CodigoCliente').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+                    $('#NomeCliente').html('');
+                    valida_cliente = 0;
+                }
+                else {
+                    $('#NomeCliente').html(dados[0].nome);
+                    $('#CodigoCliente').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)")
+                }
+
+
+            } catch (e) {
+
+            }
+
+        });
+
+        if ($("#NomeCliente").html() != '') {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    function ValidateVendedor() {
+
+        if ($('#CodigoVendedor').val() != '') {
+            vendedor = $('#CodigoVendedor').val();
+        }
+        else {
+            vendedor = 0;
+        }
+
+        $.getJSON("Vendedores/show/ativo/" + vendedor, function (dados, status) {
+
+
+            try {
+
+                if (dados[0] == null) {
+                    document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Vendedor não encontrado';
+                    $('#modal_validate').modal({
+                        show: true
+                    });
+                    $(".modal-backdrop").addClass("fundo");
+                    $('#CodigoVendedor').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+                    $('#NomeVendedor').html('');
+
+                }
+                else {
+                    $('#NomeVendedor').html(dados[0].nome);
+                    $('#CodigoVendedor').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)")
+                }
+
+            } catch (e) {
+
+            }
+
+        });
+
+    }
+
 
 });
