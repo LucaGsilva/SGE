@@ -261,14 +261,12 @@ $(document).ready(function () {
                     success: function (data) {
                     },
                 });;
-                limparDados();
                 DesabilitaBtn();
-                limparDados();
                 setTimeout(function () {
                     LimparTabela();
                     PreencheTabela();
                 }, 140);
-
+                limparDados();
             }
         }
     };

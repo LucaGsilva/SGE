@@ -216,13 +216,13 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("Dados Gravado");
                 }
-            });;
-            limparDados();
+            });
             DesabilitaBtn();
             setTimeout(function () {
                 LimparTabela();
                 PreencheTabela();
-            }, 140);;
+            }, 140);
+            limparDados();
         }
 
     };

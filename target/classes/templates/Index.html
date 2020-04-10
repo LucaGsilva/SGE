@@ -200,7 +200,9 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login?logout">Logout</a>
+          <form th:action="@{/logout}" method="post">
+            <input class="btn btn-primary" type="submit" value="Logout"/>
+        </form>
         </div>
       </div>
     </div>

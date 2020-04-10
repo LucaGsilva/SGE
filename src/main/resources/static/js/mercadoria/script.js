@@ -231,14 +231,14 @@ $(document).ready(function () {
                     success: function (data) {
                         alert("Dados Gravado");
                     }
-                });;
+                });
                 DesabilitaBtn();
                 setTimeout(function () {
                     LimparTabela();
                     PreencheTabela();
                 }, 140);
+                limparDados();
             }
-            limparDados();
         }
     };
 

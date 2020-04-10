@@ -208,13 +208,13 @@ $(document).ready(function () {
                         alert("Dados Gravado");
                     }
 
-                });;
+                });
                 DesabilitaBtn();
-                limparDados();
                 setTimeout(function () {
                     LimparTabela();
                     PreencheTabela();
                 }, 140);
+                limparDados();
             }
         }
 

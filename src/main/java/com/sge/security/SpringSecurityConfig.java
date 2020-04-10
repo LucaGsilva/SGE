@@ -51,7 +51,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/login").permitAll()
-			.defaultSuccessUrl("/",true)
+			.defaultSuccessUrl("/")
+			.and()
+			.logout()
+			.logoutSuccessUrl("/login?logout")
+			.deleteCookies("JSESSIONID")
+			.invalidateHttpSession(true)
 			.and()
 			.sessionManagement().maximumSessions(1).expiredUrl("/login");
 		
