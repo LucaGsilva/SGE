@@ -144,6 +144,8 @@ $(document).ready(function () {
 
         $('#total_unidades').val(total);
 
+        return total;
+
     }
 
     function TotalBruto() {
@@ -187,8 +189,12 @@ $(document).ready(function () {
             $("#valor_desconto").val(desconto);
             $('#valor_desconto').unmask();
             $('#valor_desconto').mask('000.000.000.000.000,00', { reverse: true });
+            return desconto;
         }
-        return desconto;
+
+        else {
+            return desconto;
+        }
 
     }
 
@@ -211,8 +217,8 @@ $(document).ready(function () {
             $('#total_liquido').mask('000.000.000.000.000,00', { reverse: true });
 
             return total_liquido;
-
         }
+
 
     }
 
@@ -257,9 +263,39 @@ $(document).ready(function () {
         if (TotalizaItens().val() > 0) {
 
             if (ValidateCliente() && ValidateVendedor()) {
+                Mercadoria = MercadoriaPedido();
+                alert($("#FormaPagamento").val())
+                cod = 0;
+                id_cliente = $("#CodigoCliente").val();
+                id_vendedor = $("#CodigoVendedor").val();
+                tot_itens = TotalizaItens().val();
+                tot_unidades = TotalUnidade();
+                pagameto = $("#FormaPagamento").val();
+                total = TotalLiquido();
+                percent_desc = $('#percent_desconto').val();
+                val_desconto = Desconto();
 
+                $.ajax({
+                    url: "/Pedidoitem/add",
+                    type: "POST",
+                    //data: JSON.stringify({nome:nome.value,email:email.value}),
+                    data: JSON.stringify({
+                        id: cod,
+                        pedido: {
+                            id: cod, formaPagameto: pagameto, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
+                            total_unidades: tot_unidades, usuario: { id: 2 }, valor_total: total
+                        }
+                    }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                    },
+                });
             }
+
+
         }
+
         else {
             document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Não é possivel fechar pedido sem itens';
             $('#modal_validate').modal({
@@ -370,7 +406,33 @@ $(document).ready(function () {
 
         });
 
+        if ($("#NomeVendedor").html() != '') {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
+    function MercadoriaPedido() {
+        let itens = []
+        linhas = TotalizaItens().val();
+
+        for (let index = 0; index < linhas; index++) {
+
+            let mercadoria = []
+            codigo = tabela.row(index).data()[0];
+            quantidade = tabela.row(index).data()[2];
+
+            mercadoria.push([{ "id": codigo, "qtd": quantidade }]);
+            itens.push(mercadoria);
+        }
+
+        //alert(itens[0][0][0].id);
+
+        return itens;
+
+    }
 
 });

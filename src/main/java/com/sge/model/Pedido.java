@@ -27,9 +27,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -44,15 +43,13 @@ public class Pedido {
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoItem> pedidoItem;
 
-	@OneToOne
-	@MapKeyColumn
+	@ManyToOne
 	private Vendedor vendedor;
 
-	@OneToOne
+	@ManyToOne
 	private Cliente cliente;
 
-	@OneToOne
-	@MapKeyColumn
+	@ManyToOne
 	private Usuario usuario;
 
 	private FormaPagamento FormaPagameto;
@@ -69,7 +66,7 @@ public class Pedido {
 	private Date data_pedido;
 
 	private int qtd_total;
-	private Double valor_total;
+	private Double valor_total, valor_desconto, percentual_desconto;
 
 	public Long getId() {
 		return id;
@@ -123,6 +120,22 @@ public class Pedido {
 		this.data_pedido = data_pedido;
 	}
 
+	public Double getValor_desconto() {
+		return valor_desconto;
+	}
+
+	public void setValor_desconto(Double valor_desconto) {
+		this.valor_desconto = valor_desconto;
+	}
+
+	public Double getPercentual_desconto() {
+		return percentual_desconto;
+	}
+
+	public void setPercentual_desconto(Double percentual_desconto) {
+		this.percentual_desconto = percentual_desconto;
+	}
+
 	public int getQtd_total() {
 		return qtd_total;
 	}
@@ -149,7 +162,7 @@ public class Pedido {
 
 	public Pedido(List<PedidoItem> pedidoItem, Vendedor vendedor, Cliente cliente, Usuario usuario,
 			FormaPagamento formaPagameto, List<Mercadoria> mercadoria, Enumeracao cancelado, Date data_pedido,
-			int qtd_total, Double valor_total) {
+			int qtd_total, Double valor_total, Double valor_desconto, Double percentual_desconto) {
 		super();
 		this.pedidoItem = pedidoItem;
 		this.vendedor = vendedor;
@@ -161,6 +174,8 @@ public class Pedido {
 		this.data_pedido = data_pedido;
 		this.qtd_total = qtd_total;
 		this.valor_total = valor_total;
+		this.valor_desconto = valor_desconto;
+		this.percentual_desconto = percentual_desconto;
 	}
 
 	public Pedido() {

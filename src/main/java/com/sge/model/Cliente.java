@@ -18,12 +18,14 @@
 
 package com.sge.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -32,12 +34,12 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(mappedBy = "cliente")
-	private Pedido pedido;
+	@OneToMany
+	private List<Pedido> pedido;
 
 	@Column(unique = true)
 	private String cpf;
-	private String nome, endereco, cidade, fone, email, estado,cep;
+	private String nome, endereco, cidade, fone, email, estado, cep;
 
 	public Long getId() {
 		return id;
@@ -102,8 +104,7 @@ public class Cliente {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
+
 	public String getCep() {
 		return cep;
 	}
@@ -112,7 +113,8 @@ public class Cliente {
 		this.cep = cep;
 	}
 
-	public Cliente(String cpf, String nome, String endereco, String cidade, String fone, String email, String estado,String cep) {
+	public Cliente(String cpf, String nome, String endereco, String cidade, String fone, String email, String estado,
+			String cep) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;

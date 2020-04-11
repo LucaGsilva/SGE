@@ -46,7 +46,7 @@
                       Nome de usuário ou senha inválidos.</div>
                     <div th:if="${param.logout}">
                       Você foi desconectado.</div>
-                    <h1 class="h4 text-gray-900 mb-4">Bem vindo</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Bem-vindo</h1>
                   </div>
                   <form class="user" th:action="@{/login}" method="post">
                     <div class="form-group">
@@ -59,11 +59,7 @@
                         id="exampleInputPassword" placeholder="Senha">
                     </div>
                     <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Lembre-me</label>
-                      </div>
-                    </div>
+                     
                     <input type="submit" class="login btn btn-primary btn-user btn-block" value="Login" />
                   </form>
                 </div>
