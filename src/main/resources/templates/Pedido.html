@@ -136,7 +136,7 @@
 
     <!-- Content Wrapper -->
 
-    <!--MODAL PERCENTUAL DE DESCONTO-->
+    <!--MODAL MENSAGEM-->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <div class="modal" tabindex="-1" role="dialog" id="modal_validate">
@@ -157,7 +157,105 @@
         </div>
       </div>
 
-      <!--FIM MODAL PERCENTUAL DE DESCONTO-->
+      <!--FIM MODAL MENSAGEM-->
+
+
+      <!-- INICIO MODAL FINALIZA PEDIDO -->
+
+      <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+        id="Modal_finaliza_pedido">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Pedido Gerado</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" id="btnclose">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <div class="container">
+
+                <div class="form-row" id="corpo_finaliza_pedido">
+
+                  <div class="form-group col-md-12"></div>
+                  <div class="form-group col-md-12"></div>
+                  <div class="form-group col-md-12"></div>
+
+                  <div class="form-group col-md-3">
+                    <label>N° Pedido</label>
+                    <div>
+                      <input type="number" class="form-control" id="finaliza_numero_pedido" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-5"></div>
+
+                  <div class="form-group col-md-3">
+                    <label>Total Líquido</label>
+                    <div>
+                      <input type="number" class="form-control" id="finaliza_total_liquido" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-1"></div>
+
+
+                  <div class="form-group col-md-3">
+                    <label>Desconto</label>
+                    <div>
+                      <input type="number" class="form-control" id="finaliza_desconto" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-5"></div>
+
+                  <div class="form-group col-md-3">
+                    <label>Total Bruto</label>
+                    <div>
+                      <input type="number" class="form-control" id="finaliza_total_bruto" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <div class="dropdown-divider"></div>
+                  </div>
+        
+
+                  <div class="form-group col-md-6">
+                    <label>Cliente</label>
+                    <div>
+                      <input type="text" class="form-control" id="finaliza_cliente" disabled>
+                    </div>
+                  </div>
+
+                 
+
+                  <div class="form-group col-md-6">
+                    <label>Vendedor</label>
+                    <div>
+                      <input type="text" class="form-control" id="finaliza_vendedor" disabled>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Sair</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIM MODAL FINALIZA PEDIDO-->
+
+
 
 
       <!-- Main Content -->
@@ -448,7 +546,7 @@
             </div>
 
             <div class="form-group col-md-2">
-              <label>Total liquido</label>
+              <label>Total Líquido</label>
               <div class="left-inner-addon">
                 <i class="fas fa-dollar-sign"></i>
                 <input type="text" class="form-control" disabled value="0" id="total_liquido">
@@ -589,8 +687,8 @@
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <form th:action="@{/logout}" method="post">
-              <input class="btn btn-primary" type="submit" value="Logout"/>
-          </form>
+              <input class="btn btn-primary" type="submit" value="Logout" />
+            </form>
           </div>
         </div>
       </div>

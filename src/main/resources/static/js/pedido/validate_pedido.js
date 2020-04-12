@@ -7,11 +7,17 @@ $(document).ready(function () {
     $("#total_itens").prop('disabled', true);
     $("#total_unidades").prop('disabled', true);
 
+    $("#finaliza_numero_pedido").prop('disabled', true);
+    $("#finaliza_total_liquido").prop('disabled', true);
+    $("#finaliza_desconto").prop('disabled', true);
+    $("#finaliza_total_bruto").prop('disabled', true);
+    $("#finaliza_cliente").prop('disabled', true);
+    $("#finaliza_vendedor").prop('disabled', true);
+
     var codigo = 0;
     var quantidade = 0;
     var valor_total = 0;
     var tabela = $("#tabela_pedido").DataTable();
-    var ta = $("#tabela_cliente").DataTable();
 
     var mercadoria_id = 0;
     var descricao = '';
@@ -260,55 +266,68 @@ $(document).ready(function () {
 
     $("#finalizar_venda").click(function () {
 
-        if (TotalizaItens().val() > 0) {
-
-            if (ValidateCliente() && ValidateVendedor()) {
-                Mercadoria = MercadoriaPedido();
-                cod = 0;
-                id_cliente = $("#CodigoCliente").val();
-                id_vendedor = $("#CodigoVendedor").val();
-                tot_itens = TotalizaItens().val();
-                tot_unidades = TotalUnidade();
-                pagameto = $("#FormaPagamento").val();
-                percent_desc = $('#percent_desconto').val();
-                val_desconto = Desconto();
-                total_bruto = TotalBruto();
-                total = TotalLiquido();
-                itens = MercadoriaPedido()
+        try {
 
 
-                $.ajax({
-                    url: "/Pedidoitem/add",
-                    type: "POST",
-                    //data: JSON.stringify({nome:nome.value,email:email.value}),
-                    data: JSON.stringify({
-                        id: cod,
-                        pedido: {
-                            id: cod, formaPagameto: pagameto, itens: tot_itens, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
-                            total_itens: tot_unidades, valor_liquido: total, valor_bruto: total_bruto, mercadoria: itens
-                        }
-                    }),
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                    },
-                });
+            if (TotalizaItens().val() > 0) {
 
-                LimparPedido();
+                if (ValidateCliente() && ValidateVendedor()) {
+                    Mercadoria = MercadoriaPedido();
+                    cod = 0;
+                    id_cliente = $("#CodigoCliente").val();
+                    id_vendedor = $("#CodigoVendedor").val();
+                    tot_itens = TotalizaItens().val();
+                    tot_unidades = TotalUnidade();
+                    pagameto = $("#FormaPagamento").val();
+                    percent_desc = $('#percent_desconto').val();
+                    val_desconto = Desconto();
+                    total_bruto = TotalBruto();
+                    total = TotalLiquido();
+                    itens = MercadoriaPedido()
+
+
+                    $.ajax({
+                        url: "/Pedidoitem/add",
+                        type: "POST",
+                        //data: JSON.stringify({nome:nome.value,email:email.value}),
+                        data: JSON.stringify({
+                            id: cod,
+                            pedido: {
+                                id: cod, formaPagameto: pagameto, itens: tot_itens, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
+                                total_itens: tot_unidades, valor_liquido: total, valor_bruto: total_bruto, mercadoria: itens
+                            }
+                        }),
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            $('#finaliza_numero_pedido').val(data)
+                            LimparPedido()
+                        },
+                    }).fail(function () {
+                        document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Não foi possível gravar o pedido';
+                        $('#modal_validate').modal({
+                            show: true
+                        });
+                    });
+
+
+                }
+
 
             }
 
+            else {
+                document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Não é possivel fechar pedido sem itens';
+                $('#modal_validate').modal({
+                    show: true
+                });
+                $(".modal-backdrop").addClass("fundo");
+            }
 
         }
-
-        else {
-            document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> Não é possivel fechar pedido sem itens';
-            $('#modal_validate').modal({
-                show: true
-            });
-            $(".modal-backdrop").addClass("fundo");
+        catch (error) {
+            
         }
-
     });
 
 
@@ -445,11 +464,9 @@ $(document).ready(function () {
         tabela.rows("[role=row]").remove().draw(false);
     }
 
-    function LimaprDados() {
+    function LimparDados() {
         $("#CodigoCliente").val('');
-        $("#NomeCliente").html('')
-        $("#CodigoVendedor").val('');
-        $("#NomeVendedor").html('');
+        $('#CodigoVendedor').val('');
         $("#FormaPagamento").val('Dinheiro');
         $("#percent_desconto").val(0);
         $("#valor_desconto").val(0);
@@ -457,12 +474,53 @@ $(document).ready(function () {
         $("#total_liquido").val(0);
         $("#total_itens").val(0);
         $("#total_unidades").val(0);
+        $('#NomeVendedor').html('');
+        $('#NomeCliente').html('');
+        $('#CodigoMercadoria').val('')
+        $('#Descricao').html('')
+        $('#adicionar_quantidade').val(0)
+        $("#finalizar_venda").prop('disabled', true);
 
     }
 
+    function ExibeFinalPedido() {
+
+        if ($('#finaliza_numero_pedido').val() != 0) {
+
+
+            codigo = $('#finaliza_numero_pedido').val();
+            $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) {
+
+                $('#finaliza_total_liquido').val(dados.valor_liquido)
+                $('#finaliza_desconto').val(dados.valor_desconto)
+                $('#finaliza_total_bruto').val(dados.valor_bruto)
+                $('#finaliza_cliente').val(dados.cliente.nome)
+                $('#finaliza_vendedor').val(dados.vendedor.nome)
+
+            })
+
+            $('#finaliza_total_liquido').unmask();
+            $('#finaliza_total_liquido').mask('000.000.000.000.000,00', { reverse: true });
+            $('#finaliza_desconto').unmask();
+            $('#finaliza_desconto').mask('000.000.000.000.000,00', { reverse: true });
+            $('#finaliza_total_bruto').unmask();
+            $('#finaliza_total_bruto').mask('000.000.000.000.000,00', { reverse: true });
+
+            $('#Modal_finaliza_pedido').modal({
+                show: true
+            });
+
+        }
+        else {
+            $('#Modal_finaliza_pedido').modal({
+                show: true
+            });
+        }
+    }
 
     function LimparPedido() {
         LimparTabela();
-        LimaprDados();
+        LimparDados();
+        ExibeFinalPedido();
     }
 });

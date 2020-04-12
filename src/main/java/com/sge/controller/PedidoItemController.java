@@ -55,11 +55,12 @@ public class PedidoItemController {
 	}
 
 	@PostMapping("/add")
-	public void addPedido(@RequestBody PedidoItem ped, Authentication auth) {
+	public long addPedido(@RequestBody PedidoItem ped, Authentication auth) {
+
+		Long numero_pedido = (long) 0;
 
 		try {
 
-			Long numero_pedido = (long) 0;
 			Usuario usuario = new Usuario();
 			usuario.setId(userRep.findByLoginParametro(auth.getName()).getId());
 
@@ -88,6 +89,7 @@ public class PedidoItemController {
 		} catch (NullPointerException e) {
 
 		}
+		return numero_pedido;
 
 	}
 

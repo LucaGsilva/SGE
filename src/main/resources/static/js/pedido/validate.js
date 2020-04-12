@@ -3,7 +3,7 @@ valida_vendedor = 0;
 valida_mercadoria = 0;
 
 
-$(function () {
+$(document).ready(function () {
 
 
     //Retira a exibição do Model Validade ao clicar
