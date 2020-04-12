@@ -284,7 +284,7 @@ $(document).ready(function () {
                     data: JSON.stringify({
                         id: cod,
                         pedido: {
-                            id: cod, formaPagameto: pagameto, itens : tot_itens, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
+                            id: cod, formaPagameto: pagameto, itens: tot_itens, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
                             total_itens: tot_unidades, valor_liquido: total, valor_bruto: total_bruto, mercadoria: itens
                         }
                     }),
@@ -293,6 +293,9 @@ $(document).ready(function () {
                     success: function (data) {
                     },
                 });
+
+                LimparPedido();
+
             }
 
 
@@ -437,4 +440,29 @@ $(document).ready(function () {
 
     }
 
+    //Limpar toda a tabela
+    function LimparTabela() {
+        tabela.rows("[role=row]").remove().draw(false);
+    }
+
+    function LimaprDados() {
+        $("#CodigoCliente").val('');
+        $("#NomeCliente").html('')
+        $("#CodigoVendedor").val('');
+        $("#NomeVendedor").html('');
+        $("#FormaPagamento").val('Dinheiro');
+        $("#percent_desconto").val(0);
+        $("#valor_desconto").val(0);
+        $("#total_bruto").val(0);
+        $("#total_liquido").val(0);
+        $("#total_itens").val(0);
+        $("#total_unidades").val(0);
+
+    }
+
+
+    function LimparPedido() {
+        LimparTabela();
+        LimaprDados();
+    }
 });

@@ -57,11 +57,11 @@ public class PedidoItemController {
 	@PostMapping("/add")
 	public void addPedido(@RequestBody PedidoItem ped, Authentication auth) {
 
-		Long numero_pedido = (long) 0;
-		Usuario usuario = new Usuario();
-		usuario.setId(userRep.findByLoginParametro(auth.getName()).getId());
-
 		try {
+
+			Long numero_pedido = (long) 0;
+			Usuario usuario = new Usuario();
+			usuario.setId(userRep.findByLoginParametro(auth.getName()).getId());
 
 			ped.getPedido().setCancelado(Enumeracao.N);
 			ped.getPedido().setData_pedido(new Date());
@@ -86,7 +86,7 @@ public class PedidoItemController {
 			}
 
 		} catch (NullPointerException e) {
-			System.out.println(e);
+
 		}
 
 	}

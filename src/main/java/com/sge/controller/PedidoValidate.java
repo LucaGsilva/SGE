@@ -21,15 +21,14 @@
 package com.sge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import com.sge.model.Cliente;
 import com.sge.model.Pedido;
 import com.sge.model.Usuario;
 import com.sge.model.Vendedor;
 
-
-@Configuration
+@Component
 public class PedidoValidate {
 
 	@Autowired
@@ -41,18 +40,8 @@ public class PedidoValidate {
 	@Autowired
 	private VendedorRepository repVend;
 
-	public PedidoValidate() {
-		super();
-	}
-
-	public PedidoValidate(UsuarioRepositiry repUser, ClienteRepository repCli, VendedorRepository repVend) {
-		super();
-		this.repUser = repUser;
-		this.repCli = repCli;
-		this.repVend = repVend;
-	}
-
 	public boolean ValidatePedido(Pedido ped) {
+
 		System.out.println("User" + ValidateUser(ped.getUsuario()) + "Cliente" + ValidateCliente(ped.getCliente())
 				+ "Vendedor" + ValidateVendedor(ped.getVendedor()));
 		if (ValidateUser(ped.getUsuario()) && ValidateCliente(ped.getCliente())
@@ -61,7 +50,7 @@ public class PedidoValidate {
 		} else {
 			return false;
 		}
-	} 
+	}
 
 	private boolean ValidateUser(Usuario user) {
 
