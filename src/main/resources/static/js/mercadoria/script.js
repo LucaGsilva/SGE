@@ -14,6 +14,10 @@ $(function () {
                 document.getElementById('Menu_Pedido_Novo').style.display = "none";
             }
 
+            if (dados.pedido_listagem == 'N') {
+                document.getElementById('Menu_Pedido_Listagem').style.display = "none";
+            }
+
             if (dados.pedido_cancela == 'N') {
                 document.getElementById('Menu_Pedido_Cancela').style.display = "none";
             }
@@ -21,7 +25,7 @@ $(function () {
                 document.getElementById('Menu_Pedido_Troca').style.display = "none";
             }
 
-            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N') {
+            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
                 document.getElementById('Menu_Pedido').style.display = "none";
             }
 
@@ -64,7 +68,6 @@ $(function () {
 
     });
 });
-
 $(document).ready(function () {
 
     $('#Preco').mask('000.000.000.000.000,00', { reverse: true });
@@ -304,8 +307,8 @@ $(document).ready(function () {
         }
     }
 
-        function ValidatePreco() {
-            
+    function ValidatePreco() {
+
         if ($("#Preco").val().trim() == '') {
 
             document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O preço deve ser preenchido';
@@ -324,13 +327,13 @@ $(document).ready(function () {
 
     function Validate() {
 
-        if (ValidateDescricao() && ValidatePreco()){
+        if (ValidateDescricao() && ValidatePreco()) {
             return true;
         }
         else {
             return false;
         }
-        
-        
+
+
     }
 });

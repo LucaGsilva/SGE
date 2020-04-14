@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KAUSAM</title>
 
+  <link rel="shortcut icon" href="img/inventory.png" type="image/x-icon">
+
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
@@ -17,7 +19,7 @@
 
   <!--Meu Css-->
   <link href="DataTables/DataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/index/style.css" rel="stylesheet">
 
 
 </head>
@@ -29,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas"><img src="img/babydoll.png"></i>
         </div>
@@ -56,7 +58,7 @@
         <div id="id_pedido" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Pedido:</h6>
-            <a class="collapse-item" href="Pedido/Novo" id="Menu_Pedido_Novo">Novo Pedido</a>
+            <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
             <a class="collapse-item" href="Listagem-Pedido" id="Menu_Pedido_Listagem">Listagem de Pedido</a>
             <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
             <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
@@ -131,6 +133,7 @@
     </ul>
 
 
+
     <!--PARTE SUPERIOR-->
 
     <!-- Content Wrapper -->
@@ -167,87 +170,50 @@
                 </a>
               </div>
             </li>
-
           </ul>
         </nav>
         <!--FIM PARTE SUPERIOR-->
-        <!-- Large modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
-          id="btnnovo">Novo</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
-          id="btneditar">Editar</button>
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-          aria-hidden="true" id="modelo-cadastro">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Vendedor</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true" id="btnclose">&times;</span>
-                </button>
-              </div>
-
-              <div class="modal-body">
-                <!--Formulario-->
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-8">
-                      <label>Nome</label>
-                      <input type="text" class="form-control" id="nome">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label>Ativo</label>
-                      <select id="ativo" class="form-control">
-                        <option selected>N</option>
-                        <option>S</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-                <!--Fim Formulario-->
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btncancel">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="btnadd">Salvar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DataTales Example -->
+        <!-- Tabela de Pedidose -->
         <div class="card shadow mb-4">
-          <button id="button">Remover</button>
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Vendedor</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Listagem de Pedidos</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="tabela" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Ativo</th>
+                    <th>N° PEDIDO</th>
+                    <th>DATA</th>
+                    <th>CLIENTE</th>
+                    <th>VENDEDOR</th>
+                    <th>USUÁRIO</th>
+                    <th>CANCELADO</th>
+                    <th>TOTAL</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Nome</th>
-                    <th>Ativo</th>
+                    <th>N° PEDIDO</th>
+                    <th>DATA</th>
+                    <th>CLIENTE</th>
+                    <th>VENDEDOR</th>
+                    <th>USUÁRIO</th>
+                    <th>CANCELADO</th>
+                    <th>TOTAL</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  </tr>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
       </div>
+
       <!-- /.container-fluid -->
+
 
     </div>
 
@@ -269,7 +235,9 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <form th:action="@{/logout}" method="post">
+            <input class="btn btn-primary" type="submit" value="Logout" />
+          </form>
         </div>
       </div>
     </div>
@@ -292,7 +260,10 @@
   <script src="DataTables/dataTables.bootstrap4.min.js"></script>
 
   <!--Meu Script-->
-  <script src="js/script.js"></script>
+  <script src="js/Listagem_de_Pedido/script.js"></script>
+  <script src="js/Listagem_de_Pedido/jquery.mask.js"></script>
+  <script src="js/Listagem_de_Pedido/jquery.mask.min.js"></script>
+
 
   <!--Fonte do Google-->
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">

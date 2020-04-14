@@ -59,6 +59,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Pedido:</h6>
             <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
+            <a class="collapse-item" href="Listagem-Pedido" id="Menu_Pedido_Listagem">Listagem de Pedido</a>
             <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
             <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
           </div>
@@ -221,7 +222,7 @@
                   <div class="form-group col-md-12">
                     <div class="dropdown-divider"></div>
                   </div>
-        
+
 
                   <div class="form-group col-md-6">
                     <label>Cliente</label>
@@ -230,7 +231,7 @@
                     </div>
                   </div>
 
-                 
+
 
                   <div class="form-group col-md-6">
                     <label>Vendedor</label>
@@ -668,32 +669,32 @@
 
       </div>
 
-
     </div>
+  </div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Deseja Sair?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <form th:action="@{/logout}" method="post">
-              <input class="btn btn-primary" type="submit" value="Logout" />
-            </form>
-          </div>
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Deseja Sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <form th:action="@{/logout}" method="post">
+            <input class="btn btn-primary" type="submit" value="Logout" />
+          </form>
         </div>
       </div>
     </div>
   </div>
+
   <!-- Bootstrap core JavaScript-->
 
   <script src="vendor/jquery/jquery.min.js"></script>

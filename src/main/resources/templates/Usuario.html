@@ -59,6 +59,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Pedido:</h6>
             <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
+            <a class="collapse-item" href="Listagem-Pedido" id="Menu_Pedido_Listagem">Listagem de Pedido</a>
             <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
             <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
           </div>
@@ -271,6 +272,13 @@
                       </select>
                     </div>
                     <div class="form-group col-md-2">
+                      <label>Lista Pedido</label>
+                      <select class="form-control" id="Listagem_Pedido">
+                        <option>N</option>
+                        <option>S</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
                       <label>Cancela Pedido</label>
                       <select class="form-control" id="Pedido_Cancela">
                         <option>N</option>
@@ -299,14 +307,14 @@
                       </select>
                     </div>
                     <div class="form-group col-md-2">
-                      <label>Titulo Abertos</label>
+                      <label>Titulo Aberto</label>
                       <select class="form-control" id="Titulo_Aberto">
                         <option>N</option>
                         <option>S</option>
                       </select>
                     </div>
-                    <div class="form-group col-md-3">
-                      <label>Titulo Liquidados</label>
+                    <div class="form-group col-md-2">
+                      <label>Titulo Liquidado</label>
                       <select class="form-control" id="Titulo_Fechado">
                         <option>N</option>
                         <option>S</option>
@@ -378,8 +386,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <form th:action="@{/logout}" method="post">
-            <input class="btn btn-primary" type="submit" value="Logout"/>
-        </form>
+            <input class="btn btn-primary" type="submit" value="Logout" />
+          </form>
         </div>
       </div>
     </div>

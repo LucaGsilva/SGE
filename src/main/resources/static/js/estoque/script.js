@@ -14,6 +14,10 @@ $(function () {
                 document.getElementById('Menu_Pedido_Novo').style.display = "none";
             }
 
+            if (dados.pedido_listagem == 'N') {
+                document.getElementById('Menu_Pedido_Listagem').style.display = "none";
+            }
+
             if (dados.pedido_cancela == 'N') {
                 document.getElementById('Menu_Pedido_Cancela').style.display = "none";
             }
@@ -21,7 +25,7 @@ $(function () {
                 document.getElementById('Menu_Pedido_Troca').style.display = "none";
             }
 
-            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N') {
+            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
                 document.getElementById('Menu_Pedido').style.display = "none";
             }
 

@@ -54,7 +54,7 @@ public class Login implements UserDetailsService {
 		VerificaPermissao(user);
 		List<GrantedAuthority> concessoes = AuthorityUtils.createAuthorityList(Permissao.get(0), Permissao.get(1),
 				Permissao.get(2), Permissao.get(3), Permissao.get(4), Permissao.get(5), Permissao.get(6),
-				Permissao.get(7), Permissao.get(8), Permissao.get(9), Permissao.get(10));
+				Permissao.get(7), Permissao.get(8), Permissao.get(9), Permissao.get(10), Permissao.get(11));
 
 		return new User(user.getUsuario().getLogin(), user.getUsuario().getPassword(), concessoes);
 	}
@@ -116,6 +116,11 @@ public class Login implements UserDetailsService {
 		}
 		if (usuario.getUsuario_acesso().toString() == ("S")) {
 			Permissao.add("ROLE_PG_USUARIO");
+		} else {
+			Permissao.add("N");
+		}
+		if (usuario.getPedido_listagem().toString() == ("S")) {
+			Permissao.add("ROLE_PG_PEDIDO_LISTAGEM");
 		} else {
 			Permissao.add("N");
 		}

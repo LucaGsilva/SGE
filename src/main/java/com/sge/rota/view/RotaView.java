@@ -32,6 +32,7 @@ public class RotaView implements WebMvcConfigurer {
 		registry.addViewController("/Vendedor").setViewName("Vendedor");
 		registry.addViewController("/Pedido").setViewName("Pedido");
 		registry.addViewController("/login").setViewName("Login");
+		registry.addViewController("/Listagem-Pedido").setViewName("Listagem_de_Pedido");
 	}
 
 }
