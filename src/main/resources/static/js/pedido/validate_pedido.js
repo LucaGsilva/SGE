@@ -282,8 +282,9 @@ $(document).ready(function () {
                     percent_desc = $('#percent_desconto').val();
                     val_desconto = Desconto();
                     total_bruto = TotalBruto();
-                    total = TotalLiquido();
                     itens = MercadoriaPedido()
+                    unidade = TotalUnidade();
+                    total = TotalLiquido();
 
 
                     $.ajax({
@@ -294,7 +295,7 @@ $(document).ready(function () {
                             id: cod,
                             pedido: {
                                 id: cod, formaPagameto: pagameto, itens: tot_itens, valor_desconto: val_desconto, percentual_desconto: percent_desc, cliente: { id: id_cliente }, vendedor: { id: id_vendedor }, total_itens: tot_itens,
-                                total_itens: tot_unidades, valor_liquido: total, valor_bruto: total_bruto, mercadoria: itens
+                                total_itens: tot_unidades, itens_total_unidade : unidade, valor_liquido: total, valor_bruto: total_bruto, mercadoria: itens
                             }
                         }),
                         dataType: "json",

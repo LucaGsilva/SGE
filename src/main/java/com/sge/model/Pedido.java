@@ -65,7 +65,7 @@ public class Pedido {
 	@Temporal(TemporalType.DATE)
 	private Date data_pedido;
 
-	private int itens;
+	private int itens, itens_total_unidade;
 
 	private Double valor_liquido, valor_bruto, valor_desconto, percentual_desconto;
 
@@ -149,6 +149,14 @@ public class Pedido {
 		this.itens = itens;
 	}
 
+	public int getItens_total_unidade() {
+		return itens_total_unidade;
+	}
+
+	public void setItens_total_unidade(int itens_total_unidade) {
+		this.itens_total_unidade = itens_total_unidade;
+	}
+
 	public Double getValor_liquido() {
 		return valor_liquido;
 	}
@@ -175,7 +183,7 @@ public class Pedido {
 
 	public Pedido(List<PedidoItem> pedidoItem, Vendedor vendedor, Cliente cliente, Usuario usuario,
 			FormaPagamento formaPagameto, List<Mercadoria> mercadoria, Enumeracao cancelado, Date data_pedido,
-			int itens, Double valor_liquido, Double valor_bruto, Double valor_desconto, Double percentual_desconto) {
+			int itens, int itens_total_unidade, Double valor_liquido, Double valor_bruto, Double valor_desconto, Double percentual_desconto) {
 		super();
 		this.pedidoItem = pedidoItem;
 		this.vendedor = vendedor;
@@ -186,6 +194,7 @@ public class Pedido {
 		this.cancelado = cancelado;
 		this.data_pedido = data_pedido;
 		this.itens = itens;
+		this.itens_total_unidade = itens_total_unidade;
 		this.valor_liquido = valor_liquido;
 		this.valor_desconto = valor_desconto;
 		this.percentual_desconto = percentual_desconto;

@@ -72,8 +72,7 @@ $(function () {
 
 $(document).ready(function () {
 
-    codigo = 2;
-
+    $("#btnvisualizar").prop('disabled', true);
 
     $('#tabela').dataTable({
         keys: true,
@@ -105,7 +104,7 @@ $(document).ready(function () {
 
     $('#tabela_pedido').dataTable({
         ajax: {
-            url: "/Pedidoitem/show/" + codigo,
+            url: "/Pedidoitem/show/0",
             type: "GET",
             dataSrc: ''
         },
@@ -181,15 +180,33 @@ $(document).ready(function () {
 
         table.ajax.url("/Pedidoitem/show/" + codigo).load();
 
+        $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) { 
+
+            $("#finaliza_numero_pedido").val(codigo);
+            $("#finaliza_total_liquido").val(dados.valor_liquido);
+            $("#finaliza_desconto").val(dados.valor_desconto);
+            $("#finaliza_total_bruto").val(dados.valor_bruto);
+            $("#finaliza_forma_pagamento").val(dados.formaPagameto);
+            $("#finaliza_itens").val(dados.itens);
+            $("#finaliza_total_unidades").val(dados.itens_total_unidade);
+            $("#finaliza_cliente").val(dados.cliente.id + " - "+dados.cliente.nome);
+            $("#finaliza_vendedor").val(dados.vendedor.id + " - " + dados.vendedor.nome);
+
+            finaliza_total_liquido
+
+        });
+
+        
+
     };
 
 
     function HabilitaBtn() {
-        document.getElementById('btnvisualizar').style.display = "inline-block";
+        $("#btnvisualizar").prop('disabled', false);
     };
 
     function DesabilitaBtn() {
-        document.getElementById('btnvisualizar').style.display = "none";
+        $("#btnvisualizar").prop('disabled', true);
     };
 
 });

@@ -58,6 +58,7 @@ public class PedidoItemController {
 	public long addPedido(@RequestBody PedidoItem ped, Authentication auth) {
 
 		Long numero_pedido = (long) 0;
+		int menos_merc = 1;
 
 		try {
 
@@ -74,13 +75,32 @@ public class PedidoItemController {
 			for (Mercadoria mercadoria : ped.getPedido().getMercadoria()) {
 
 				if (PedRep.findById(ped.getPedido().getId()) != null) {
-					PedidoItem pedidoitem = new PedidoItem();
-					pedidoitem.setQtd(mercadoria.getQtd());
-					pedidoitem.setPedido(ped.getPedido());
-					pedidoitem.setPreco(mercadoria.getPreco());
-					pedidoitem.setPreco_total(mercadoria.getPreco_total());
-					pedidoitem.setMercadoria(mercadoria);
-					Repitem.save(pedidoitem);
+
+					if (Repitem.findByPedidoMercadoria(numero_pedido, mercadoria.getId()) == 0) {
+
+						// Verifica se existe a mesma mercadoria no pedido antes de adicionar, caso
+						// existe apenas atualiza a quantidade
+						PedidoItem pedidoitem = new PedidoItem();
+						pedidoitem.setQtd(mercadoria.getQtd());
+						pedidoitem.setPedido(ped.getPedido());
+						pedidoitem.setPreco(mercadoria.getPreco());
+						pedidoitem.setPreco_total(mercadoria.getPreco_total());
+						pedidoitem.setMercadoria(mercadoria);
+						Repitem.save(pedidoitem);
+
+					} else {
+
+						PedidoItem pedidoitem = new PedidoItem();
+						pedidoitem = Repitem.findByMercadoriaPedido(numero_pedido, mercadoria.getId());
+						pedidoitem.setQtd(mercadoria.getQtd() + mercadoria.getQtd());
+						pedidoitem.setPreco_total(pedidoitem.getPreco() * pedidoitem.getQtd());
+						Repitem.save(pedidoitem);
+						// Corrige a quantidade de intem na capa após agregação de mercadorias iguais
+						ped.getPedido().setId(numero_pedido);
+						ped.getPedido().setItens(ped.getPedido().getItens() - 1);
+						PedRep.save(ped.getPedido());
+
+					}
 
 				}
 
