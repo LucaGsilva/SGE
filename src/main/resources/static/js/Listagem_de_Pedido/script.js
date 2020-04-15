@@ -69,7 +69,11 @@ $(function () {
     });
 });
 
+
 $(document).ready(function () {
+
+    codigo = 2;
+
 
     $('#tabela').dataTable({
         keys: true,
@@ -99,6 +103,28 @@ $(document).ready(function () {
     });
 
 
+    $('#tabela_pedido').dataTable({
+        ajax: {
+            url: "/Pedidoitem/show/" + codigo,
+            type: "GET",
+            dataSrc: ''
+        },
+        columns: [
+            { data: "mercadoria.id" },
+            {
+                data: "mercadoria.nome"
+            }, {
+                data: "qtd"
+            },
+            {
+                data: "preco"
+            }, {
+                data: "preco_total"
+            }]
+    });
+
+
+    var tabela_pedido = $("#tabela_pedido").DataTable();
 
     // Chama a função de leitura para executar outras ações na tabela
     $("#tabela").DataTable();
@@ -127,5 +153,43 @@ $(document).ready(function () {
         var row = table.row($(this).parents("tr"));
 
     });
+
+    $("#btnvisualizar").click(function (e) {
+
+        LimparTabela();
+
+        PreencheTabela();
+
+    });
+
+    //Limpar toda a tabela
+    function LimparTabela() {
+        tabela_pedido.rows("[role=row]").remove().draw(false);
+
+    }
+
+
+    //Preenche tabela com dados atualizados
+    function PreencheTabela() {
+        var table = $('#tabela_pedido').DataTable();
+
+        var tabela = $('#tabela').DataTable();
+
+        dados = tabela.rows('.selec').data();
+
+        codigo = dados[0].id;
+
+        table.ajax.url("/Pedidoitem/show/" + codigo).load();
+
+    };
+
+
+    function HabilitaBtn() {
+        document.getElementById('btnvisualizar').style.display = "inline-block";
+    };
+
+    function DesabilitaBtn() {
+        document.getElementById('btnvisualizar').style.display = "none";
+    };
 
 });

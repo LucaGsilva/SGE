@@ -19,7 +19,7 @@
 
   <!--Meu Css-->
   <link href="DataTables/DataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="css/index/style.css" rel="stylesheet">
+  <link href="css/Listagem_de_Pedido/style.css" rel="stylesheet">
 
 
 </head>
@@ -173,6 +173,155 @@
           </ul>
         </nav>
         <!--FIM PARTE SUPERIOR-->
+
+        <div class="botoes">
+
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+            id="btnvisualizar" style="display: none;">Visualizar</button>
+
+        </div>
+
+        <div class="modal fade bd-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+          aria-hidden="true" id="Modal_finaliza_pedido">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Pedido Gerado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="btnclose">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+
+                <div class="container">
+
+                  <div class="form-row" id="corpo_finaliza_pedido">
+
+                    <div class="form-group col-md-2">
+                      <label>N° Pedido</label>
+                      <div>
+                        <input type="number" class="form-control" id="finaliza_numero_pedido" disabled>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group col-md-2">
+                      <label>Total Líquido</label>
+                      <div>
+                        <input type="number" class="form-control" id="finaliza_total_liquido" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Desconto</label>
+                      <div>
+                        <input type="number" class="form-control" id="finaliza_desconto" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Total Bruto</label>
+                      <div>
+                        <input type="number" class="form-control" id="finaliza_total_bruto" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                      <label>Forma de Pagamento</label>
+                      <div>
+                        <input type="text" class="form-control" id="finaliza_total_bruto" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                      <label>Itens</label>
+                      <div>
+                        <input type="text" class="form-control" id="finaliza_total_bruto" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                      <label>Unidades</label>
+                      <div>
+                        <input type="text" class="form-control" id="finaliza_total_bruto" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                      <div class="dropdown-divider"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                      <label>Cliente</label>
+                      <div>
+                        <input type="text" class="form-control" id="finaliza_cliente" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label>Vendedor</label>
+                      <div>
+                        <input type="text" class="form-control" id="finaliza_vendedor" disabled>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- INICIO TABELA DE PEDIDOS -->
+              <div class="container">
+
+
+                <div class="card shadow mb-4">
+
+                  <div class="card-body">
+                    <div>
+                      <div class="dropdown-divider"></div>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="tabela_pedido" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Codigo</th>
+                              <th>Mercadoria</th>
+                              <th>QTD</th>
+                              <th>Valor Unitario</th>
+                              <th>Valor Total</th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <th>Codigo</th>
+                            <th>Mercadoria</th>
+                            <th>QTD</th>
+                            <th>Valor Unitario</th>
+                            <th>Valor Total</th>
+                          </tfoot>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!--FIM TABELA DE PEDIDOS-->
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Sair</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
 
         <!-- Tabela de Pedidose -->
         <div class="card shadow mb-4">

@@ -98,9 +98,9 @@ public class PedidoItemController {
 		return Repitem.findAll();
 	}
 
-	@GetMapping("/show/{id}")
-	public PedidoItem show(@PathVariable(value = "id") long id) {
-		return Repitem.findBypedido(id);
+	@GetMapping("/show/{pedido}")
+	public Iterable<PedidoItem> show(@PathVariable(value = "pedido") long pedido) {
+		return Repitem.findBypedido(pedido);
 
 	}
 

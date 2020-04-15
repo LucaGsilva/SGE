@@ -16,8 +16,6 @@
 *
 *------------------------------------------------------------------------------------------------ */
 
-
-
 package com.sge.controller;
 
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +26,5 @@ import com.sge.model.PedidoItem;
 public interface PedidoItemRepository extends CrudRepository<PedidoItem, Long> {
 
 	@Query(value = "SELECT * FROM pedido_item p WHERE p.pedido_id = :pedido", nativeQuery = true)
-	PedidoItem findBypedido(long pedido);
+	Iterable<PedidoItem> findBypedido(long pedido);
 }
