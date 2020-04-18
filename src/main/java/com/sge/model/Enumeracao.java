@@ -22,5 +22,5 @@
 package com.sge.model;
 
 public enum Enumeracao {
-	S, N
+	S, N,Entrada,Saida
 }

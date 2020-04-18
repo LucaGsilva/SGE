@@ -33,6 +33,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Pedido {
 
@@ -62,7 +64,8 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private Enumeracao cancelado;
 
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data_pedido;
 
 	private int itens, itens_total_unidade;
@@ -183,7 +186,8 @@ public class Pedido {
 
 	public Pedido(List<PedidoItem> pedidoItem, Vendedor vendedor, Cliente cliente, Usuario usuario,
 			FormaPagamento formaPagameto, List<Mercadoria> mercadoria, Enumeracao cancelado, Date data_pedido,
-			int itens, int itens_total_unidade, Double valor_liquido, Double valor_bruto, Double valor_desconto, Double percentual_desconto) {
+			int itens, int itens_total_unidade, Double valor_liquido, Double valor_bruto, Double valor_desconto,
+			Double percentual_desconto) {
 		super();
 		this.pedidoItem = pedidoItem;
 		this.vendedor = vendedor;

@@ -190,8 +190,10 @@ $(document).ready(function () {
     function salvar() {
 
         dados = table.rows('.selec').data();
-        var mercadoria_id = dados[0].mercadoria.id;
-        var estoque = document.getElementById('Estoque');
+        mercadoria_id = dados[0].mercadoria.id;
+        movimentacao = $("#Movimentacao").val();
+        Obs = $("#Observacao").val();
+        estoque = $("#QTD").val();
 
         try {
             cod = dados[0].id;
@@ -199,35 +201,34 @@ $(document).ready(function () {
             cod = 0;
         }
 
-        if (estoque.value == '') {
-            alert("Informe o estoque atual")
-        }
 
-        else {
-            $.ajax({
-                url: "/Estoques/add",
-                type: "POST",
-                //data: JSON.stringify({nome:nome.value,email:email.value}),
-                data: JSON.stringify({
 
-                    id: cod,
-                    mercadoria: { id: mercadoria_id },
-                    qtd_estoque: estoque.value,
+        $.ajax({
+            url: "/Estoques/add",
+            type: "POST",
+            //data: JSON.stringify({nome:nome.value,email:email.value}),
+            data: JSON.stringify({
 
-                }),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    alert("Dados Gravado");
-                }
-            });
-            DesabilitaBtn();
-            setTimeout(function () {
-                LimparTabela();
-                PreencheTabela();
-            }, 140);
-            limparDados();
-        }
+                id: cod,
+                tipo_Movimentacao: movimentacao,
+                observacao: Obs,
+                mercadoria: { id: mercadoria_id },
+                qtd_estoque: estoque,
+
+            }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                alert("Dados Gravado");
+            }
+        });
+        DesabilitaBtn();
+        setTimeout(function () {
+            LimparTabela();
+            PreencheTabela();
+        }, 140);
+        limparDados();
+
 
     };
 

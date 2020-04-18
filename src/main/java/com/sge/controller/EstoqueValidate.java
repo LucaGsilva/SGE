@@ -18,17 +18,41 @@
 *
 *------------------------------------------------------------------------------------------------ */
 
-
-
 package com.sge.controller;
 
+import com.sge.model.Enumeracao;
 import com.sge.model.Estoque;
 
 public class EstoqueValidate {
 
 	public boolean Validate(Estoque estoque) {
 
-		return false;
+		if (ValidaMovimentacao(estoque) && ValidateObservacao(estoque)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private Boolean ValidaMovimentacao(Estoque estoque) {
+
+		if (estoque.getTipo_Movimentacao() == Enumeracao.Entrada
+				|| estoque.getTipo_Movimentacao() == Enumeracao.Saida) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	private Boolean ValidateObservacao(Estoque estoque) {
+
+		if (estoque.getObservacao().trim() != "") {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

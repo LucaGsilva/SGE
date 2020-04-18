@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sge.model.Enumeracao;
+import com.sge.model.Estoque;
 import com.sge.model.Mercadoria;
+import com.sge.model.Movimentacao;
 import com.sge.model.PedidoItem;
 import com.sge.model.Usuario;
 
@@ -46,19 +48,27 @@ public class PedidoItemController {
 	@Autowired
 	private UsuarioParametroRepositiry userRep;
 
+	@Autowired
+	private MovimentacaoRepository RepMov;
+
+	@Autowired
+	private EstoqueRepository RepEst;
+
 	private PedidoValidate valped = new PedidoValidate();
 
-	public PedidoItemController(PedidoRepository pedRep, UsuarioParametroRepositiry userRep) {
+	public PedidoItemController(PedidoRepository pedRep, UsuarioParametroRepositiry userRep,
+			MovimentacaoRepository repMov, EstoqueRepository repEst) {
 		super();
 		PedRep = pedRep;
 		this.userRep = userRep;
+		RepMov = repMov;
+		RepEst = repEst;
 	}
 
 	@PostMapping("/add")
 	public long addPedido(@RequestBody PedidoItem ped, Authentication auth) {
 
 		Long numero_pedido = (long) 0;
-		int menos_merc = 1;
 
 		try {
 
@@ -76,11 +86,16 @@ public class PedidoItemController {
 
 				if (PedRep.findById(ped.getPedido().getId()) != null) {
 
+					// Verifica se existe a mesma mercadoria no pedido antes de adicionar, caso
+					// existe apenas atualiza a quantidade
+
 					if (Repitem.findByPedidoMercadoria(numero_pedido, mercadoria.getId()) == 0) {
 
-						// Verifica se existe a mesma mercadoria no pedido antes de adicionar, caso
-						// existe apenas atualiza a quantidade
+						Estoque estoque = new Estoque();
+						Movimentacao movimentacao = new Movimentacao();
 						PedidoItem pedidoitem = new PedidoItem();
+
+						// Grava os Itens do Pedido
 						pedidoitem.setQtd(mercadoria.getQtd());
 						pedidoitem.setPedido(ped.getPedido());
 						pedidoitem.setPreco(mercadoria.getPreco());
@@ -88,9 +103,28 @@ public class PedidoItemController {
 						pedidoitem.setMercadoria(mercadoria);
 						Repitem.save(pedidoitem);
 
+						// Grava a Movimentação da mercadoria
+
+						estoque = RepEst.findByUnicaMercadoria(pedidoitem.getMercadoria().getId());
+						estoque.setQtd_estoque(estoque.getQtd_estoque() - pedidoitem.getQtd());
+
+						RepEst.save(estoque);
+
+						movimentacao.setMercadoria(pedidoitem.getMercadoria());
+						movimentacao.setQtd(pedidoitem.getQtd());
+						movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
+						movimentacao.setTipo(Enumeracao.Saida);
+						movimentacao.setData(new Date());
+						movimentacao.setAtividade("Venda de mercadoria - Pedido: " + numero_pedido);
+
+						RepMov.save(movimentacao);
+
 					} else {
 
+						Estoque estoque = new Estoque();
+						Movimentacao movimentacao = new Movimentacao();
 						PedidoItem pedidoitem = new PedidoItem();
+
 						pedidoitem = Repitem.findByMercadoriaPedido(numero_pedido, mercadoria.getId());
 						pedidoitem.setQtd(mercadoria.getQtd() + mercadoria.getQtd());
 						pedidoitem.setPreco_total(pedidoitem.getPreco() * pedidoitem.getQtd());
@@ -99,6 +133,22 @@ public class PedidoItemController {
 						ped.getPedido().setId(numero_pedido);
 						ped.getPedido().setItens(ped.getPedido().getItens() - 1);
 						PedRep.save(ped.getPedido());
+
+						// Grava a Movimentação da mercadoria
+
+						estoque = RepEst.findByUnicaMercadoria(pedidoitem.getMercadoria().getId());
+						estoque.setQtd_estoque(estoque.getQtd_estoque() - 1);
+
+						RepEst.save(estoque);
+
+						movimentacao.setMercadoria(pedidoitem.getMercadoria());
+						movimentacao.setQtd(pedidoitem.getQtd());
+						movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
+						movimentacao.setTipo(Enumeracao.Saida);
+						movimentacao.setData(new Date());
+						movimentacao.setAtividade("Venda de mercadoria - Pedido: " + numero_pedido);
+
+						RepMov.save(movimentacao);
 
 					}
 

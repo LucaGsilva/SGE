@@ -24,6 +24,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Estoque {
@@ -35,6 +36,12 @@ public class Estoque {
 	@OneToOne
 	@MapKeyColumn
 	private Mercadoria mercadoria;
+
+	@Transient
+	Enumeracao Tipo_Movimentacao;
+
+	@Transient
+	String Observacao;
 
 	private int qtd_estoque;
 
@@ -58,9 +65,24 @@ public class Estoque {
 		this.qtd_estoque = qtd_estoque;
 	}
 
-	public Estoque(Long id, Mercadoria mercadoria, int qtd_estoque) {
+	public Enumeracao getTipo_Movimentacao() {
+		return Tipo_Movimentacao;
+	}
+
+	public void setTipo_Movimentacao(Enumeracao tipo_Movimentacao) {
+		Tipo_Movimentacao = tipo_Movimentacao;
+	}
+
+	public String getObservacao() {
+		return Observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		Observacao = observacao;
+	}
+
+	public Estoque(Mercadoria mercadoria, Movimentacao movimentacao, int qtd_estoque) {
 		super();
-		this.id = id;
 		this.mercadoria = mercadoria;
 		this.qtd_estoque = qtd_estoque;
 	}
