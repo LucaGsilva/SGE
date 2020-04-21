@@ -15,7 +15,6 @@
 
 package com.sge.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,8 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private Login userPermissao;
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
@@ -39,7 +37,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Index").hasRole("PG_DASHBOARD")
 			.antMatchers("/").hasRole("PG_DASHBOARD")
 			.antMatchers("/Dasboard/**").hasRole("PG_DASHBOARD")
-			.antMatchers("/Mercadoria/**").hasRole("PG_MERCADORIA")
+			.antMatchers("/Mercadorias/**").hasRole("PG_MERCADORIA")
+			.antMatchers("/Mercadorias/show/**").authenticated()
 			.antMatchers("/Vendedor/**").hasRole("PG_VENDEDOR")
 			.antMatchers("/Vendedores/add/").hasRole("PG_VENDEDOR")
 			.antMatchers("/Vendedor/show").authenticated()
@@ -48,15 +47,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Clientes/show").authenticated()
 			.antMatchers("/Estoque/**").hasRole("PG_ESTOQUE")
 			.antMatchers("/Estoques/add/").hasRole("PG_ESTOQUE")
-			.antMatchers("/Estoques/show**").authenticated()
+			.antMatchers("/Estoques/show/**").authenticated()
 			.antMatchers("/Usuario*/**").hasRole("PG_USUARIO")
 			.antMatchers("/User*/**").hasRole("PG_USUARIO")
 			.antMatchers("/Pedido/**").hasRole("PG_PEDIDO_NOVO")
 			.antMatchers("/Pedido/add**").hasRole("PG_PEDIDO_NOVO")
-			.antMatchers("/Pedido/show**").authenticated()
+			.antMatchers("/Pedido/show/**").authenticated()
 			.antMatchers("/Listagem-Pedido*/**").hasRole("PG_PEDIDO_LISTAGEM")
 			.antMatchers("/Titulo/Aberto*/**").hasRole("PG_TITULO_ABERTO")
 			.antMatchers("/Titulo/Liquidado*/**").hasRole("PG_TITULO_LIQUIDADO")
+			.antMatchers("/Movimentacao/show/**").authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/login").permitAll()
@@ -71,7 +71,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 
 	}
-	
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {

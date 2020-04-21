@@ -1,12 +1,16 @@
 package com.sge.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Movimentacao {
@@ -21,8 +25,10 @@ public class Movimentacao {
 	int qtd;
 
 	Enumeracao Tipo;
-
-	Date data;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	Calendar data;
 
 	int Estoque_Atual;
 
@@ -60,11 +66,11 @@ public class Movimentacao {
 		Tipo = tipo;
 	}
 
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
@@ -84,7 +90,7 @@ public class Movimentacao {
 		Atividade = atividade;
 	}
 
-	public Movimentacao(Mercadoria mercadoria, int qtd, Enumeracao tipo, Date data, int estoque_Atual,
+	public Movimentacao(Mercadoria mercadoria, int qtd, Enumeracao tipo, Calendar data, int estoque_Atual,
 			String atividade) {
 		super();
 		this.mercadoria = mercadoria;

@@ -17,7 +17,8 @@
 
 package com.sge.controller;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -69,6 +70,7 @@ public class PedidoItemController {
 	public long addPedido(@RequestBody PedidoItem ped, Authentication auth) {
 
 		Long numero_pedido = (long) 0;
+		Calendar data = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 
 		try {
 
@@ -76,7 +78,7 @@ public class PedidoItemController {
 			usuario.setId(userRep.findByLoginParametro(auth.getName()).getId());
 
 			ped.getPedido().setCancelado(Enumeracao.N);
-			ped.getPedido().setData_pedido(new Date());
+			ped.getPedido().setData_pedido(data.getInstance());
 			ped.getPedido().setUsuario(usuario);
 			numero_pedido = PedRep.save(ped.getPedido()).getId();
 
@@ -114,7 +116,7 @@ public class PedidoItemController {
 						movimentacao.setQtd(pedidoitem.getQtd());
 						movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
 						movimentacao.setTipo(Enumeracao.Saida);
-						movimentacao.setData(new Date());
+						movimentacao.setData(data.getInstance());
 						movimentacao.setAtividade("Venda de mercadoria - Pedido: " + numero_pedido);
 
 						RepMov.save(movimentacao);
@@ -126,7 +128,7 @@ public class PedidoItemController {
 						PedidoItem pedidoitem = new PedidoItem();
 
 						pedidoitem = Repitem.findByMercadoriaPedido(numero_pedido, mercadoria.getId());
-						pedidoitem.setQtd(mercadoria.getQtd() + mercadoria.getQtd());
+						pedidoitem.setQtd(mercadoria.getQtd() + pedidoitem.getQtd());
 						pedidoitem.setPreco_total(pedidoitem.getPreco() * pedidoitem.getQtd());
 						Repitem.save(pedidoitem);
 						// Corrige a quantidade de intem na capa após agregação de mercadorias iguais
@@ -137,15 +139,15 @@ public class PedidoItemController {
 						// Grava a Movimentação da mercadoria
 
 						estoque = RepEst.findByUnicaMercadoria(pedidoitem.getMercadoria().getId());
-						estoque.setQtd_estoque(estoque.getQtd_estoque() - 1);
+						estoque.setQtd_estoque(estoque.getQtd_estoque() - mercadoria.getQtd());
 
 						RepEst.save(estoque);
 
 						movimentacao.setMercadoria(pedidoitem.getMercadoria());
-						movimentacao.setQtd(pedidoitem.getQtd());
+						movimentacao.setQtd(mercadoria.getQtd());
 						movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
 						movimentacao.setTipo(Enumeracao.Saida);
-						movimentacao.setData(new Date());
+						movimentacao.setData(data.getInstance());
 						movimentacao.setAtividade("Venda de mercadoria - Pedido: " + numero_pedido);
 
 						RepMov.save(movimentacao);

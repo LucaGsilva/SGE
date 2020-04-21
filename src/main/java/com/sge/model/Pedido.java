@@ -18,7 +18,7 @@
 
 package com.sge.model;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -64,9 +64,9 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private Enumeracao cancelado;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_pedido;
+	private Calendar data_pedido;
 
 	private int itens, itens_total_unidade;
 
@@ -120,11 +120,11 @@ public class Pedido {
 		this.cancelado = cancelado;
 	}
 
-	public Date getData_pedido() {
+	public Calendar getData_pedido() {
 		return data_pedido;
 	}
 
-	public void setData_pedido(Date data_pedido) {
+	public void setData_pedido(Calendar data_pedido) {
 		this.data_pedido = data_pedido;
 	}
 
@@ -185,7 +185,7 @@ public class Pedido {
 	}
 
 	public Pedido(List<PedidoItem> pedidoItem, Vendedor vendedor, Cliente cliente, Usuario usuario,
-			FormaPagamento formaPagameto, List<Mercadoria> mercadoria, Enumeracao cancelado, Date data_pedido,
+			FormaPagamento formaPagameto, List<Mercadoria> mercadoria, Enumeracao cancelado, Calendar data_pedido,
 			int itens, int itens_total_unidade, Double valor_liquido, Double valor_bruto, Double valor_desconto,
 			Double percentual_desconto) {
 		super();

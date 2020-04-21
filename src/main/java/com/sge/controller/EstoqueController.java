@@ -18,7 +18,8 @@
 
 package com.sge.controller;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,8 @@ public class EstoqueController {
 	@PostMapping("/add")
 	public void addEstoque(@RequestBody Estoque estoque) {
 
+		Calendar data = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+
 		if (rep.VerificaMercadoria(estoque.getMercadoria().getId()) != null) {
 			if (validate.Validate(estoque)) {
 
@@ -65,7 +68,7 @@ public class EstoqueController {
 					rep.save(est);
 
 					movimentacao.setTipo(Enumeracao.Entrada);
-					movimentacao.setData(new Date());
+					movimentacao.setData(data.getInstance());
 					movimentacao.setEstoque_Atual(est.getQtd_estoque());
 					movimentacao.setMercadoria(estoque.getMercadoria());
 					movimentacao.setQtd(estoque.getQtd_estoque());
@@ -83,7 +86,7 @@ public class EstoqueController {
 					rep.save(est);
 
 					movimentacao.setTipo(Enumeracao.Entrada);
-					movimentacao.setData(new Date());
+					movimentacao.setData(data.getInstance());
 					movimentacao.setEstoque_Atual(est.getQtd_estoque());
 					movimentacao.setMercadoria(estoque.getMercadoria());
 					movimentacao.setQtd(estoque.getQtd_estoque());
