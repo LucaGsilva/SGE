@@ -129,21 +129,6 @@ $(document).ready(function () {
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
         var table = $('#tabela').DataTable();
-
-        $.ajax({
-            url: "/Users/show",
-            type: "GET",
-            dataSrc: '',
-
-            columns: [
-                { data: "usuario.id" },
-                {
-                    data: "usuario.nome"
-                }, {
-                    data: "usuario.login"
-                }]
-
-        });
         table.ajax.reload();
 
 
@@ -229,7 +214,7 @@ $(document).ready(function () {
                     mercadoria: mercadoria,
                     estoque: estoque,
                     pedido_novo: pedido_novo,
-                    pedido_listagem : pedido_listagem,
+                    pedido_listagem: pedido_listagem,
                     pedido_cancela: pedido_cancela,
                     pedido_troca: pedido_troca,
                     vendedor: vendedor,
@@ -247,7 +232,7 @@ $(document).ready(function () {
             setTimeout(function () {
                 LimparTabela();
                 PreencheTabela();
-            }, 140);
+            }, 280);
             limparDados();
         }
     };
@@ -290,16 +275,6 @@ $(document).ready(function () {
         $('#Titulo_Fechado').val(dados[0].titulo_liquidado);
     });
 
-    function ObtemUsuario(login) {
-        $.getJSON("/Usuarios/show/login/" + login, function (dados, status) {
-
-            try {
-                return dados.id;
-            } catch (e) {
-            }
-
-        });
-    }
 
     $("#Nome").blur(function (e) {
 
@@ -322,8 +297,6 @@ $(document).ready(function () {
         }
 
     });
-
-
 
     function ValidateNome() {
         if ($("#Nome").val().trim() == '') {

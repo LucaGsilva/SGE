@@ -139,26 +139,6 @@ $(document).ready(function () {
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
         var table = $('#tabela').DataTable();
-
-        $.ajax({
-            url: "/Mercadorias/show",
-            type: "GET",
-            dataSrc: '',
-
-            columns: [{
-                data: "id"
-            }, {
-                data: "cod_barras"
-            }, {
-                data: "nome"
-            },
-            {
-                data: "preco"
-            },
-            {
-                data: "referencia"
-            }]
-        });
         table.ajax.reload();
 
 

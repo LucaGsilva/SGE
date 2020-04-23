@@ -45,6 +45,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Cliente/**").hasRole("PG_CLIENTE")
 			.antMatchers("/Clientes/add/").hasRole("PG_CLIENTE")
 			.antMatchers("/Clientes/show").authenticated()
+			.antMatchers("/MovimentacaoMotivo/add").hasRole("PG_ESTOQUE")
+			.antMatchers("/MovimentacaoMotivo/show**").authenticated()
 			.antMatchers("/Estoque/**").hasRole("PG_ESTOQUE")
 			.antMatchers("/Estoques/add/").hasRole("PG_ESTOQUE")
 			.antMatchers("/Estoques/show/**").authenticated()

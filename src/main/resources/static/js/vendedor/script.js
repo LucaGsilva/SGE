@@ -130,20 +130,6 @@ $(document).ready(function () {
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
         var table = $('#tabela').DataTable();
-
-        $.ajax({
-            url: "/Vendedores/show",
-            type: "GET",
-            dataSrc: '',
-
-            columns: [{
-                data: "id"
-            }, {
-                data: "nome"
-            }, {
-                data: "ativo"
-            }]
-        });
         table.ajax.reload();
 
     };

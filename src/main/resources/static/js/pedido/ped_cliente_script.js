@@ -34,25 +34,6 @@ $(document).ready(function () {
     function PreencheTabela() {
 
         var table = $('#tabela_cliente').DataTable();
-
-        $.ajax({
-            ajax: {
-                url: "/Clientes/show/",
-                type: "GET",
-                dataSrc: ''
-            },
-            columns: [{
-                data: "id"
-            }, {
-                data: "nome"
-            },
-            {
-                data: "cidade"
-            },
-            {
-                data: "estado"
-            }],
-        });
         table.search('').columns().search('').draw();
         table.ajax.reload();
 

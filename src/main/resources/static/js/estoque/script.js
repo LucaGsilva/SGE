@@ -132,24 +132,6 @@ $(document).ready(function () {
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
         var table = $('#tabela').DataTable();
-
-        $.ajax({
-            url: "/Estoques/show",
-            type: "GET",
-            dataSrc: '',
-
-            columns: [
-                { data: "mercadoria.id" },
-                {
-                    data: "mercadoria.nome"
-                }, {
-                    data: "mercadoria.codBarras"
-                },
-                {
-                    data: "qtd_estoque"
-                }]
-
-        });
         table.ajax.reload();
 
 
@@ -180,57 +162,150 @@ $(document).ready(function () {
     });
 
     //Limpar os dados quando clicar em Novo
-    $("#btnnovo").on("click", function () {
-        table.$("tr.selec").removeClass("selec");
-        limparDados();
-        Estados();
+    $("#btnSalvaMotivo").on("click", function () {
+        cod = 0;
+        valTipo = $("#tipo").val();
+        valMotivo = $("#motivo").val();
+
+        if (validateMotivo()) {
+
+
+            $.ajax({
+                url: "/MovimentacaoMotivo/add",
+                type: "POST",
+                data: JSON.stringify({
+
+                    id: cod,
+                    motivo: valMotivo,
+                    tipo: valTipo,
+
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    alert("Dados Gravado");
+                }
+            });
+            limparMotivo();
+
+        }
     });
+
+    $("#QTD").blur(function (e) {
+
+        validateQuantidade();
+
+    });
+
+    function validateMotivo() {
+
+        if ($("#motivo").val().trim() == '') {
+            document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O motivo deve ser preenchido ';
+            $('#modal_validate').modal({
+                show: true
+            });
+            $(".modal-backdrop").css("backgroud-color", "transparent");
+            $('#motivo').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+            return false;
+        }
+        else {
+            $('#motivo').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+            return true;
+        }
+
+    }
+
+    function validateQuantidade() {
+
+        if ($("#QTD").val() == '') {
+            document.getElementsByClassName('Mensagem_modal2')[0].innerHTML = '<strong>ATENÇÃO !</strong> A quantidade deve ser preenchida ';
+            $('#modal_validate2').modal({
+                show: true
+            });
+            $(".modal-backdrop").css("backgroud-color", "transparent");
+            $('#QTD').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+            return false;
+        }
+        else {
+            $('#QTD').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+            return true;
+        }
+
+    }
+
+    function validate() {
+
+        if ($("#Observacao").val() == null) {
+            document.getElementsByClassName('Mensagem_modal2')[0].innerHTML = '<strong>ATENÇÃO !</strong> O motivo deve ser preenchido ';
+            $('#modal_validate2').modal({
+                show: true
+            });
+            $(".modal-backdrop").css("backgroud-color", "transparent");
+            $('#Observacao').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+            return false;
+        }
+        else {
+            $('#Observacao').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+            return true;
+        }
+
+    }
 
     //Envia dados por metodo Post
     function salvar() {
 
-        dados = table.rows('.selec').data();
-        mercadoria_id = dados[0].mercadoria.id;
-        movimentacao = $("#Movimentacao").val();
-        Obs = $("#Observacao").val();
-        estoque = $("#QTD").val();
 
-        try {
-            cod = dados[0].id;
-        } catch (error) {
-            cod = 0;
+        if (validate() && validateQuantidade()) {
+
+            dados = table.rows('.selec').data();
+            mercadoria_id = dados[0].mercadoria.id;
+            movimentacao = $("#Movimentacao").val();
+            Obs = $("#Observacao").val();
+            estoque = $("#QTD").val();
+
+            try {
+                cod = dados[0].id;
+            } catch (error) {
+                cod = 0;
+            }
+
+
+
+            $.ajax({
+                url: "/Estoques/add",
+                type: "POST",
+                //data: JSON.stringify({nome:nome.value,email:email.value}),
+                data: JSON.stringify({
+
+                    id: cod,
+                    tipo_Movimentacao: movimentacao,
+                    observacao: Obs,
+                    mercadoria: { id: mercadoria_id },
+                    qtd_estoque: estoque,
+
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    alert("Dados Gravado");
+                }
+            });
+
+            DesabilitaBtn();
+            setTimeout(function () {
+                LimparTabela();
+                PreencheTabela();
+            }, 140);
+            limparDados();
         }
 
-
-
-        $.ajax({
-            url: "/Estoques/add",
-            type: "POST",
-            //data: JSON.stringify({nome:nome.value,email:email.value}),
-            data: JSON.stringify({
-
-                id: cod,
-                tipo_Movimentacao: movimentacao,
-                observacao: Obs,
-                mercadoria: { id: mercadoria_id },
-                qtd_estoque: estoque,
-
-            }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                alert("Dados Gravado");
-            }
-        });
-        DesabilitaBtn();
-        setTimeout(function () {
-            LimparTabela();
-            PreencheTabela();
-        }, 140);
-        limparDados();
-
-
     };
+
+    //Limpar dados do Cadastro
+    function limparMotivo() {
+        $('#motivo').val('');
+        $('#Modelo-Movimentacao').modal('toggle');
+    }
 
     //Limpar dados do Cadastro
     function limparDados() {
@@ -254,6 +329,10 @@ $(document).ready(function () {
         table.rows("[role=row]").remove().draw(false);
     }
 
+    $("#Movimentacao").click(function (e) {
+        Movimentacao();
+    });
+
     // Editar cadastro
     $("#btneditar").click(function () {
         dados = table.rows('.selec').data();
@@ -261,6 +340,41 @@ $(document).ready(function () {
         $('#Mercadoria').val(dados[0].mercadoria.nome);
         $('#CodBarras').val(dados[0].mercadoria.codBarras);
         $('#Estoque').val(dados[0].qtd_estoque);
+        $("#QTD").val('');
+        Movimentacao();
     });
+
+    function Movimentacao() {
+
+        Entrada = [];
+        Saida = [];
+
+        $("#Observacao").empty();
+
+        if ($("#Movimentacao").val() == "Entrada") {
+            $.getJSON("/MovimentacaoMotivo/show/Entrada/", function (dados) {
+                Entrada = dados
+
+                for (let index = 0; index < Entrada.length; index++) {
+
+                    $('#Observacao').append('<option>' + Entrada[index].motivo + '</option>');
+
+                }
+            })
+        }
+
+        if ($("#Movimentacao").val() == "Saida") {
+            $.getJSON("/MovimentacaoMotivo/show/Saida/", function (dados) {
+                Saida = dados
+
+                for (let index = 0; index < Saida.length; index++) {
+                    $('#Observacao').append('<option>' + Saida[index].motivo + '</option>');
+
+
+                }
+            })
+        }
+
+    }
 
 });

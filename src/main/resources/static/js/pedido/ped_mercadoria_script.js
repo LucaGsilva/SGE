@@ -36,24 +36,6 @@ $(document).ready(function () {
     function PreencheTabela() {
 
         var table = $('#tabela_mercadoria').DataTable();
-
-        $.ajax({
-            ajax: {
-                url: "/Estoques/show",
-                type: "GET",
-                dataSrc: ''
-            },
-            columns: [
-                { data: "mercadoria.id" },
-                {
-                    data: "mercadoria.nome"
-                }, {
-                    data: "mercadoria.codBarras"
-                },
-                {
-                    data: "qtd_estoque"
-                }]
-        });
         table.search('').columns().search('').draw();
         table.ajax.reload();
 

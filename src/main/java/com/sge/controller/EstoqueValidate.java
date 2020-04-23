@@ -27,7 +27,7 @@ public class EstoqueValidate {
 
 	public boolean Validate(Estoque estoque) {
 
-		if (ValidaMovimentacao(estoque) && ValidateObservacao(estoque)) {
+		if (ValidaMovimentacao(estoque) && ValidateObservacao(estoque) && ValidateQuantodade(estoque)) {
 			return true;
 		} else {
 			return false;
@@ -47,12 +47,33 @@ public class EstoqueValidate {
 
 	private Boolean ValidateObservacao(Estoque estoque) {
 
-		if (estoque.getObservacao().trim() != "") {
-			return true;
-		} else {
+		try {
+
+			if (estoque.getObservacao().trim() != null) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
 			return false;
 		}
 
 	}
+	
+	private Boolean ValidateQuantodade(Estoque estoque) {
 
+		try {
+
+			if (estoque.getQtd_estoque() < 1) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
 }

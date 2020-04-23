@@ -152,36 +152,6 @@ $(document).ready(function () {
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
         var table = $('#tabela').DataTable();
-
-        $.ajax({
-            url: "/Clientes/show",
-            type: "GET",
-            dataSrc: '',
-
-            columns: [{
-                data: "id"
-            }, {
-                data: "nome"
-            }, {
-                data: "fone"
-            },
-            {
-                data: "cpf"
-            },
-            {
-                data: "email"
-            },
-            {
-                data: "endereco"
-            },
-            {
-                data: "cidade"
-            },
-            {
-                data: "estado"
-            }]
-
-        });
         table.ajax.reload();
 
 
@@ -335,7 +305,7 @@ $(document).ready(function () {
 
     $("#Cep").blur(function () {
 
-        //Nova vari�vel "cep" somente com d�gitos.
+        //Nova variavel "cep" somente com digitos.
         var cep = $(this)
             .val()
             .replace(/\D/g, "");
