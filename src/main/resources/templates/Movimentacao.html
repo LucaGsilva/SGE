@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KAUSAM</title>
-  
+
   <link rel="shortcut icon" href="img/inventory.png" type="image/x-icon">
 
   <!-- Custom fonts for this template-->
@@ -19,7 +19,7 @@
 
   <!--Meu Css-->
   <link href="DataTables/DataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="css/index/style.css" rel="stylesheet">
+  <link href="css/movimentacao/style.css" rel="stylesheet">
 
 
 </head>
@@ -181,18 +181,83 @@
         </nav>
         <!--FIM PARTE SUPERIOR-->
 
-        <div class="inicio">
-          <h2 id="bvnd"></h2>
+        <div class="row botoes">
+
+          <div class="form-group col-md-2">
+            <h6>Periodo</h6>
+            <select id="tipo" class="form-control">
+              <option value="1">Todo o Periodo</option>
+              <option value="2" selected> Filtrar por data</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-2 periodo">
+            <h6>Inicio</h6>
+            <input type="date" class="data" id="data_inicio">
+          </div>
+
+          <div class="texto"> </div>
+
+          <div class="form-group col-md-2 periodo">
+            <h6>Final</h6>
+            <input type="date" class="data" id="data_fim">
+          </div>
+
+          <div class="form-group col-md-2">
+            <h6>Movimentação</h6>
+            <select id="tipo" class="form-control">
+              <option value="Ambos" selected>Ambos</option>
+              <option value="Entrada">Entrada</option>
+              <option value="Saida"> Saida</option>
+            </select>
+  
+          </div>
+          
+          <div class="filtrar form-group col-md-2">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"
+              id="btnnovo">Filtrar</button>
+          </div>
+          
         </div>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Movimentação de Mercadoria</h6>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="tabela" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOME</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOME</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- /.container-fluid -->
 
-     
     </div>
 
-
   </div>
+
+
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -210,8 +275,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <form th:action="@{/logout}" method="post">
-            <input class="btn btn-primary" type="submit" value="Logout"/>
-        </form>
+            <input class="btn btn-primary" type="submit" value="Logout" />
+          </form>
         </div>
       </div>
     </div>
@@ -234,7 +299,7 @@
   <script src="DataTables/dataTables.bootstrap4.min.js"></script>
 
   <!--Meu Script-->
-  <script src="js/index/script.js"></script>
+  <script src="js/movimentacao/script.js"></script>
 
   <!--Fonte do Google-->
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">

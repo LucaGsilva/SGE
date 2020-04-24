@@ -42,7 +42,6 @@ public class Movimentacao_MotivoController {
 	public Iterable<Movimentacao_Motivo> show(@PathVariable(value = "tipo") Enumeracao tipo) {
 
 		return Repositorio.findByTipo(tipo);
-
 	}
 
 }

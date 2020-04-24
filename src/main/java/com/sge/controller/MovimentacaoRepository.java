@@ -10,4 +10,7 @@ public interface MovimentacaoRepository extends CrudRepository<Movimentacao, Lon
 	@Query(value = "SELECT * FROM movimentacao m WHERE m.mercadoria_id = :mercadoria", nativeQuery = true)
 	Iterable<Movimentacao> findByMercadoria(Long mercadoria);
 	
+	@Query(value = "SELECT * from movimentacao m group by m.mercadoria_id", nativeQuery = true)
+	Iterable<Movimentacao> findByGrupo();
+	
 }

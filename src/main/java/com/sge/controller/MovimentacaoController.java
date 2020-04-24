@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sge.model.Movimentacao;
 
 @RestController
-@RequestMapping("/Movimentacao")
+@RequestMapping("/Movimentacoes")
 public class MovimentacaoController {
 
 	@Autowired
@@ -30,6 +30,11 @@ public class MovimentacaoController {
 			return null;
 		}
 
+	}
+
+	@GetMapping("/show/grupo")
+	public Iterable<Movimentacao> showGrupo() {
+		return rep.findByGrupo();
 	}
 
 }
