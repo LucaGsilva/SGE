@@ -89,18 +89,43 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function () {
+    $('#tabela_movimentacao').dataTable({
+        keys: true,
+        keys: {
+            editorKeys: 'tab-only'
+        },
+        ajax: {
+            url: "/Movimentacoes/show/grupo",
+            type: "GET",
+            dataSrc: ''
+        },
+        columns: [{
+            data: "mercadoria.nome"
+        }, {
+            data: "atividade"
+        },
+        {
+            data: "data"
+        }]
+    });
+
+});
+
+
 function HabilitaBtn() {
-    document.getElementById('btneditar').style.display = "inline-block";
+    $("#btnvisualizar").prop('disabled', false);
 };
 
 function DesabilitaBtn() {
-    document.getElementById('btneditar').style.display = "none";
+    $("#btnvisualizar").prop('disabled', true);
 };
 
 // Chama a função de leitura para executar outras ações na tabela
 $(document).ready(function () {
-    $("#tabela").DataTable();
     var table = $("#tabela").DataTable();
+    var tabelaMovimentacao = $("#tabela_movimentacao").DataTable();
+
     var data = table.row(this).data();
 
     //Habilita seleção de linha
@@ -123,27 +148,6 @@ $(document).ready(function () {
         var data = $(this).attr("id");
         var info = "key=" + data;
         var row = table.row($(this).parents("tr"));
-    });
-
-    //Preenche tabela com dados atualizados
-    function PreencheTabela() {
-        var table = $('#tabela').DataTable();
-        table.ajax.reload();
-
-    };
-
-    // Adiciona Linha
-    $("#btnadd").on("click", function () {
-        table.row
-            .add({ nome: $('#nome').val(), ativo: $('#ativo').val() })
-            .draw(false);
-        limparDados();
-    });
-
-    // Adiciona Linha
-    $("#btnsalva").on("click", function () {
-        salvar();
-
     });
 
     //Limpar os dados fechar
@@ -180,24 +184,97 @@ $(document).ready(function () {
         table.rows("[role=row]").remove().draw(false);
     }
 
-    // Editar cadastro
-    $("#btneditar").click(function () {
-        dados = table.rows('.selec').data();
-        $('#nome').val(dados[0].nome);
-        $('#ativo').val(dados[0].ativo);
-    });
+    $("#tipo").click(function (e) {
 
-    $("#tipo").click(function (e) { 
-        
-        if($("#tipo").val() == "1"){
+        if ($("#tipo").val() == "1") {
             $(".periodo").css("display", "none");
         }
 
-        if($("#tipo").val() == "2"){
+        if ($("#tipo").val() == "2") {
             $(".periodo").css("display", "block");
         }
 
-        
     });
-  
+
+    $("#btnfiltro").click(function () {
+        try {
+
+            if ($("#tipo").val() == 2) {
+
+                if (($("#data_inicio").val() < $("#data_fim").val() || $("#data_inicio").val() == $("#data_fim").val()) && $("#data_inicio").val() != '' && $("#data_fim").val() != '') {
+
+
+                    dataInicio = $("#data_inicio").val().split("-");
+                    dataFinal = $("#data_fim").val().split("-");
+
+                    IniDia = 00 + "-";
+                    IniMes = 00 + "-";
+                    IniAno = 00;
+
+                    IniDia = dataInicio[2] + "-";
+                    IniMes = dataInicio[1] + "-";
+                    IniAno = dataInicio[0];
+
+                    FimDia = 00 + "-";
+                    FimMes = 00 + "-";
+                    FimAno = 00;
+
+                    FimDia = dataFinal[2] + "-";
+                    FimMes = dataFinal[1] + "-";
+                    FimAno = dataFinal[0];
+
+                    tipo = $("#movimento").val();
+
+                    table.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/S").load();
+                }
+                else {
+
+                    table.ajax.reload();
+                }
+            }
+            else {
+
+                table.ajax.url("/Movimentacoes/show/grupo").load();
+            }
+
+        } catch (error) {
+
+        }
+
+    });
+
+    $("#btnvisualizar").click(function () {
+
+        if (($("#data_inicio").val() < $("#data_fim").val() || $("#data_inicio").val() == $("#data_fim").val()) && $("#data_inicio").val() != '' && $("#data_fim").val() != '') {
+
+
+            dataInicio = $("#data_inicio").val().split("-");
+            dataFinal = $("#data_fim").val().split("-");
+
+            IniDia = 00 + "-";
+            IniMes = 00 + "-";
+            IniAno = 00;
+
+            IniDia = dataInicio[2] + "-";
+            IniMes = dataInicio[1] + "-";
+            IniAno = dataInicio[0];
+
+            FimDia = 00 + "-";
+            FimMes = 00 + "-";
+            FimAno = 00;
+
+            FimDia = dataFinal[2] + "-";
+            FimMes = dataFinal[1] + "-";
+            FimAno = dataFinal[0];
+
+            tipo = $("#movimento").val();
+
+            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/N").load();
+        }
+        else {
+            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/Ambos/00-00-0000/00-00-0000/N").load();
+        }
+
+    });
+
 });
