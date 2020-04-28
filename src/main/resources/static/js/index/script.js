@@ -5,7 +5,7 @@ $(function () {
         try {
             nome = dados.usuario.nome
             $('#nome_usuario').append(nome);
-            $('#bvnd').append ('Bem-Vindo, ' + nome);
+            $('#bvnd').append('Bem-Vindo, ' + nome);
 
             if (dados.dashboard == 'N') {
                 document.getElementById('Menu_Dashboard').style.display = "none";
@@ -19,14 +19,11 @@ $(function () {
                 document.getElementById('Menu_Pedido_Listagem').style.display = "none";
             }
 
-            if (dados.pedido_cancela == 'N') {
-                document.getElementById('Menu_Pedido_Cancela').style.display = "none";
-            }
             if (dados.pedido_troca == 'N') {
                 document.getElementById('Menu_Pedido_Troca').style.display = "none";
             }
 
-            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
+            if (dados.pedido_novo == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
                 document.getElementById('Menu_Pedido').style.display = "none";
             }
 
@@ -50,8 +47,16 @@ $(function () {
                 document.getElementById('Menu_Estoque').style.display = "none";
             }
 
+            if (dados.movimentacao_Estoque == 'N') {
+                document.getElementById('Movimentacao').style.display = "none";
+            }
+
             if (dados.titulo_aberto == 'N') {
                 document.getElementById('Menu_Titulo_Aberto').style.display = "none";
+            }
+
+            if (dados.estoque == 'N' && dados.movimentacao_Estoque == 'N') {
+                document.getElementById('id_estoque').style.display = "none";
             }
 
             if (dados.titulo_liquidado == 'N') {
@@ -65,7 +70,7 @@ $(function () {
 
         } catch (e) {
             $('#nome_usuario').append('');
-            $('#bvnd').append ('Bem-Vindo')
+            $('#bvnd').append('Bem-Vindo')
         }
 
     });

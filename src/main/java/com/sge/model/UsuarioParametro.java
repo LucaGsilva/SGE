@@ -38,7 +38,7 @@ public class UsuarioParametro {
 	private Usuario usuario;
 
 	private Enumeracao dashboard, cliente, estoque, mercadoria, pedido_novo, pedido_troca, pedido_cancela, vendedor,
-			usuario_acesso, titulo_aberto, titulo_liquidado, pedido_listagem;
+			usuario_acesso, titulo_aberto, titulo_liquidado, pedido_listagem, Movimentacao_Estoque;
 
 	public Long getId() {
 		return id;
@@ -148,10 +148,18 @@ public class UsuarioParametro {
 		this.pedido_listagem = pedido_listagem;
 	}
 
+	public Enumeracao getMovimentacao_Estoque() {
+		return Movimentacao_Estoque;
+	}
+
+	public void setMovimentacao_Estoque(Enumeracao movimentacao_Estoque) {
+		Movimentacao_Estoque = movimentacao_Estoque;
+	}
+
 	public UsuarioParametro(Usuario usuario, Enumeracao dashboard, Enumeracao cliente, Enumeracao estoque,
 			Enumeracao mercadoria, Enumeracao pedido_novo, Enumeracao pedido_troca, Enumeracao pedido_cancela,
 			Enumeracao vendedor, Enumeracao usuario_acesso, Enumeracao titulo_aberto, Enumeracao titulo_liquidado,
-			Enumeracao pedido_listagem) {
+			Enumeracao pedido_listagem, Enumeracao Movimentacao_Estoque) {
 
 		this.usuario = usuario;
 		this.dashboard = dashboard;
@@ -166,6 +174,7 @@ public class UsuarioParametro {
 		this.titulo_aberto = titulo_aberto;
 		this.titulo_liquidado = titulo_liquidado;
 		this.pedido_listagem = pedido_listagem;
+		this.Movimentacao_Estoque = Movimentacao_Estoque;
 	}
 
 	public UsuarioParametro() {

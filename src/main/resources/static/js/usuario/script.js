@@ -18,14 +18,11 @@ $(function () {
                 document.getElementById('Menu_Pedido_Listagem').style.display = "none";
             }
 
-            if (dados.pedido_cancela == 'N') {
-                document.getElementById('Menu_Pedido_Cancela').style.display = "none";
-            }
             if (dados.pedido_troca == 'N') {
                 document.getElementById('Menu_Pedido_Troca').style.display = "none";
             }
 
-            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
+            if (dados.pedido_novo == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
                 document.getElementById('Menu_Pedido').style.display = "none";
             }
 
@@ -47,6 +44,14 @@ $(function () {
 
             if (dados.estoque == 'N') {
                 document.getElementById('Menu_Estoque').style.display = "none";
+            }
+
+            if (dados.movimentacao_Estoque == 'N') {
+                document.getElementById('Movimentacao').style.display = "none";
+            }
+
+            if (dados.estoque == 'N' && dados.movimentacao_Estoque == 'N') {
+                document.getElementById('id_estoque').style.display = "none";
             }
 
             if (dados.titulo_aberto == 'N') {
@@ -174,6 +179,7 @@ $(document).ready(function () {
         var cliente = $("#Cliente").val();
         var mercadoria = $("#Mercadoria").val();
         var estoque = $("#Estoque").val();
+        var MovEstoque = $("#Mov_Estoque").val();
         var pedido_novo = $("#Pedido_Novo").val();
         var pedido_listagem = $("#Listagem_Pedido").val();
         var pedido_cancela = $("#Pedido_Cancela").val();
@@ -213,6 +219,7 @@ $(document).ready(function () {
                     cliente: cliente,
                     mercadoria: mercadoria,
                     estoque: estoque,
+                    movimentacao_Estoque: MovEstoque,
                     pedido_novo: pedido_novo,
                     pedido_listagem: pedido_listagem,
                     pedido_cancela: pedido_cancela,
@@ -265,6 +272,7 @@ $(document).ready(function () {
         $('#Mercadoria').val(dados[0].mercadoria);
         $('#Cliente').val(dados[0].cliente);
         $('#Estoque').val(dados[0].estoque);
+        $("#Mov_Estoque").val(dados[0].movimentacao_Estoque);
         $('#Pedido_Novo').val(dados[0].pedido_novo);
         $('#Listagem_Pedido').val(dados[0].pedido_listagem);
         $('#Pedido_Cancela').val(dados[0].pedido_cancela);

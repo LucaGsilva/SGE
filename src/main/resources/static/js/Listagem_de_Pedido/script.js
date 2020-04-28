@@ -19,13 +19,16 @@ $(function () {
             }
 
             if (dados.pedido_cancela == 'N') {
-                document.getElementById('Menu_Pedido_Cancela').style.display = "none";
+                document.getElementById('btncancelar').style.display = "none";
+            }
+            else {
+                document.getElementById('btncancelar').style.display = "inline-block";
             }
             if (dados.pedido_troca == 'N') {
                 document.getElementById('Menu_Pedido_Troca').style.display = "none";
             }
 
-            if (dados.pedido_novo == 'N' && dados.pedido_cancela == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
+            if (dados.pedido_novo == 'N' && dados.pedido_troca == 'N' && dados.pedido_listagem == 'N') {
                 document.getElementById('Menu_Pedido').style.display = "none";
             }
 
@@ -47,6 +50,14 @@ $(function () {
 
             if (dados.estoque == 'N') {
                 document.getElementById('Menu_Estoque').style.display = "none";
+            }
+
+            if (dados.movimentacao_Estoque == 'N') {
+                document.getElementById('Movimentacao').style.display = "none";
+            }
+
+            if (dados.estoque == 'N' && dados.movimentacao_Estoque == 'N') {
+                document.getElementById('id_estoque').style.display = "none";
             }
 
             if (dados.titulo_aberto == 'N') {
@@ -73,6 +84,7 @@ $(function () {
 $(document).ready(function () {
 
     $("#btnvisualizar").prop('disabled', true);
+    $("#btncancelar").prop('disabled', true);
 
     $('#tabela').dataTable({
         keys: true,
@@ -180,7 +192,7 @@ $(document).ready(function () {
 
         table.ajax.url("/Pedidoitem/show/" + codigo).load();
 
-        $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) { 
+        $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) {
 
             $("#finaliza_numero_pedido").val(codigo);
             $("#finaliza_total_liquido").val(dados.valor_liquido);
@@ -189,24 +201,26 @@ $(document).ready(function () {
             $("#finaliza_forma_pagamento").val(dados.formaPagameto);
             $("#finaliza_itens").val(dados.itens);
             $("#finaliza_total_unidades").val(dados.itens_total_unidade);
-            $("#finaliza_cliente").val(dados.cliente.id + " - "+dados.cliente.nome);
+            $("#finaliza_cliente").val(dados.cliente.id + " - " + dados.cliente.nome);
             $("#finaliza_vendedor").val(dados.vendedor.id + " - " + dados.vendedor.nome);
 
             finaliza_total_liquido
 
         });
 
-        
-
     };
 
 
     function HabilitaBtn() {
         $("#btnvisualizar").prop('disabled', false);
+        $("#btncancelar").prop('disabled', false);
+
     };
 
     function DesabilitaBtn() {
         $("#btnvisualizar").prop('disabled', true);
+        $("#btncancelar").prop('disabled', true);
+
     };
 
 });

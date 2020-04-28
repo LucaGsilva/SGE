@@ -48,6 +48,6 @@
     cursor: pointer;
 }
 
-#btneditar {
-    display: none;
+#btnvisualizar {
+    margin-bottom: 1%;
 }
