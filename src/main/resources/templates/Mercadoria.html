@@ -41,96 +41,104 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-     <!-- Nav Item - Dashboard -->
-     <li class="nav-item" id="Menu_Dashboard">
-      <a class="nav-link" href="Index">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item" id="Menu_Dashboard">
+        <a class="nav-link collapsed" href="Index">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
 
-    <!--Menu Pedido-->
-    <li class="nav-item" id="Menu_Pedido">
-      <a class="nav-link" href="#" data-toggle="collapse" data-target="#id_pedido" aria-expanded="true"
-        aria-controls="collapseTwo">
-        <i class="fas fa-fw fas fa-boxes" id="icon_pedido"></i>
-        <span>Pedido</span>
-      </a>
-      <div id="id_pedido" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Pedido:</h6>
-          <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
-          <a class="collapse-item" href="Listagem-Pedido" id="Menu_Pedido_Listagem">Listagem de Pedido</a>
-          <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
-          <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
+      <!--Menu Pedido-->
+      <li class="nav-item" id="Menu_Pedido">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id_pedido" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fas fa-boxes" id="icon_pedido"></i>
+          <span>Pedido</span>
+        </a>
+        <div id="id_pedido" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pedido:</h6>
+            <a class="collapse-item" href="Pedido" id="Menu_Pedido_Novo">Novo Pedido</a>
+            <a class="collapse-item" href="Listagem-Pedido" id="Menu_Pedido_Listagem">Listagem de Pedido</a>
+            <a class="collapse-item" href="Pedido/Cancelar" id="Menu_Pedido_Cancela">Cancelar Pedido</a>
+            <a class="collapse-item" href="Pedido/Troca" id="Menu_Pedido_Troca">Troca</a>
+          </div>
         </div>
-      </div>
-    </li>
+      </li>
 
-    <!--Menu Mercadoria-->
-
+      <!--Menu Mercadoria-->
 
 
-    <li class="nav-item" id="Menu_Mercadoria">
-      <a class="nav-link" href="Mercadoria">
-        <i class="fas fa-fw fas fa-barcode"></i>
-        <span>Mercadoria</span></a>
-    </li>
-    <!-- FIM Menu Mercadoria-->
 
-    <!--Menu Vendedor-->
-    <li class="nav-item" id="Menu_Vendedor">
-      <a class="nav-link" href="Vendedor">
-        <i class="fas fa-fw fas fa-user-tag"></i>
-        <span>Vendedor</span></a>
-    </li>
-    <!--FIM Menu Vendedor-->
+      <li class="nav-item" id="Menu_Mercadoria">
+        <a class="nav-link" href="Mercadoria">
+          <i class="fas fa-fw fas fa-barcode"></i>
+          <span>Mercadoria</span></a>
+      </li>
+      <!-- FIM Menu Mercadoria-->
 
-    <!--Menu Cliente-->
+      <!--Menu Vendedor-->
+      <li class="nav-item" id="Menu_Vendedor">
+        <a class="nav-link" href="Vendedor">
+          <i class="fas fa-fw fas fa-user-tag"></i>
+          <span>Vendedor</span></a>
+      </li>
+      <!--FIM Menu Vendedor-->
 
-    <li class="nav-item" id="Menu_Cliente">
-      <a class="nav-link" href="Cliente">
-        <i class="fas fa-fw far fa-address-book"></i>
-        <span>Cliente</span></a>
-    </li>
+      <!--Menu Cliente-->
 
-    <!--FIM Menu Cliente-->
+      <li class="nav-item" id="Menu_Cliente">
+        <a class="nav-link" href="Cliente">
+          <i class="fas fa-fw far fa-address-book"></i>
+          <span>Cliente</span></a>
+      </li>
 
-    <!--Menu Usuario-->
+      <!--FIM Menu Cliente-->
 
-    <li class="nav-item" id="Menu_Usuario">
-      <a class="nav-link" href="Usuario">
-        <i class="fas fa-fw fas fa-user"></i>
-        <span>Usuario</span></a>
-    </li>
+      <!--Menu Usuario-->
 
-    <!--FIM Menu Usuario-->
+      <li class="nav-item" id="Menu_Usuario">
+        <a class="nav-link" href="Usuario">
+          <i class="fas fa-fw fas fa-user"></i>
+          <span>Usuario</span></a>
+      </li>
 
-    <!--Menu Estoque-->
+      <!--FIM Menu Usuario-->
 
+      <!--Menu Estoque-->
 
-    <li class="nav-item">
-      <a class="nav-link" href="Estoque" id="Menu_Estoque">
-        <i class="fas fa-fw fas fa-warehouse"></i>
-        <span>Estoque</span></a>
-    </li>
-    <!--FIM Menu Estoque-->
-
-    <!--Menu Titulos-->
-    <li class="nav-item" id="Menu_Titulo">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id_titulo" aria-expanded="true"
-        aria-controls="collapseTwo">
-        <i class="fas fa-fw fas fa-hand-holding-usd"></i>
-        <span>Titulos</span>
-      </a>
-      <div id="id_titulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Titulos:</h6>
-          <a class="collapse-item" href="Titulo/Aberto" id="Menu_Titulo_Aberto">Titulos Abertos</a>
-          <a class="collapse-item" href="Titulo/liquidado" id="Menu_Titulo_Liquidado">Titulos Liquidados</a>
+      <li class="nav-item" id="Menu_Pedido">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id_estoque" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fas fa-warehouse" id="icon_pedido"></i>
+          <span>Estoque</span>
+        </a>
+        <div id="id_estoque" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Estoque</h6>
+            <a class="collapse-item" href="Estoque" id="Menu_Estoque">Estoque</a>
+            <a class="collapse-item" href="Movimentacao" id="Menu_Pedido_Listagem">Movimentação de Estoque</a>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+      <!--FIM Menu Estoque-->
+
+      <!--Menu Titulos-->
+      <li class="nav-item" id="Menu_Titulo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#id_titulo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fas fa-hand-holding-usd"></i>
+          <span>Titulos</span>
+        </a>
+        <div id="id_titulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Titulos:</h6>
+            <a class="collapse-item" href="Titulo/Aberto" id="Menu_Titulo_Aberto">Titulos Abertos</a>
+            <a class="collapse-item" href="Titulo/liquidado" id="Menu_Titulo_Liquidado">Titulos Liquidados</a>
+          </div>
+        </div>
+      </li>
+    </ul>
 
 
     <!--PARTE SUPERIOR-->
@@ -189,8 +197,8 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Mercadoria</h5>
-                 <!--MODAL MENSAGEM-->
-                 <div class="modal" tabindex="-1" role="dialog" id="modal_validate">
+                <!--MODAL MENSAGEM-->
+                <div class="modal" tabindex="-1" role="dialog" id="modal_validate">
                   <div class="modal-dialog" role="document">
                     <div class="modal-body">
                       <div class="alert alert-danger" role="alert">
@@ -302,8 +310,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <form th:action="@{/logout}" method="post">
-            <input class="btn btn-primary" type="submit" value="Logout"/>
-        </form>
+            <input class="btn btn-primary" type="submit" value="Logout" />
+          </form>
         </div>
       </div>
     </div>

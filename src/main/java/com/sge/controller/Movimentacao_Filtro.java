@@ -11,14 +11,14 @@ import com.sge.model.Movimentacao;
 public class Movimentacao_Filtro {
 
 	public Set<Movimentacao> Filtro(Set<Movimentacao> movimentacao, String tipo, String data_inicio, String data_final,
-			String agrupa) {
+			int mercadoria, String agrupa) {
 
-		return Filter(movimentacao, tipo, data_inicio, data_final, agrupa);
+		return Filter(movimentacao, tipo, data_inicio, data_final, mercadoria, agrupa);
 
 	}
 
 	private Set<Movimentacao> Filter(Set<Movimentacao> movimentacao, String tipo, String data_inicio, String data_final,
-			String agrupa) {
+			int mercadoria, String agrupa) {
 
 		try {
 
@@ -34,6 +34,10 @@ public class Movimentacao_Filtro {
 			Fim = data_final.split("-");
 
 			dataFinal.set(Integer.parseInt(Fim[2]), Integer.parseInt(Fim[1]), Integer.parseInt(Fim[0]));
+
+			if (mercadoria != 0) {
+				movimentacao.removeIf(x -> x.getMercadoria().getId() != mercadoria);
+			}
 
 			if (tipo.equals("Entrada")) {
 				movimentacao.removeIf(x -> x.getTipo() == Enumeracao.Saida);

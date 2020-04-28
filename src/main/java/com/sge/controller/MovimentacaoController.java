@@ -41,10 +41,10 @@ public class MovimentacaoController {
 
 	}
 
-	@GetMapping("/show/filter/{tipo}/{data_inicio}/{data_final}/{agrupa}")
+	@GetMapping("/show/filter/{tipo}/{data_inicio}/{data_final}/{mercadoria}/{agrupa}")
 	public Set<Movimentacao> showFilter(@PathVariable(value = "tipo") String tipo,
 			@PathVariable(value = "data_inicio") String data_inicio,
-			@PathVariable(value = "data_final") String data_final, @PathVariable(value = "agrupa") String agrupa) {
+			@PathVariable(value = "data_final") String data_final, @PathVariable(value = "mercadoria") int mercadoria ,@PathVariable(value = "agrupa") String agrupa) {
 
 		try {
 
@@ -52,7 +52,7 @@ public class MovimentacaoController {
 			Set<Movimentacao> movimentacao = new LinkedHashSet<>();
 			movimentacao = rep.findByFilter();
 
-			movimentacao = filtro.Filtro(movimentacao, tipo, data_inicio, data_final, agrupa);
+			movimentacao = filtro.Filtro(movimentacao, tipo, data_inicio, data_final, mercadoria, agrupa);
 			return movimentacao;
 		} catch (Exception e) {
 			return null;

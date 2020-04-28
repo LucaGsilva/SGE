@@ -184,7 +184,34 @@ $(document).ready(function () {
         table.rows("[role=row]").remove().draw(false);
     }
 
-    $("#tipo").click(function (e) {
+    $("#tipo").click(function () {
+
+
+        if ($("#tipo").val() == "1") {
+            $(".periodo").css("display", "none");
+            $("#data_inicio").val("");
+            $("#data_fim").val("");
+        }
+
+        if ($("#tipo").val() == "2") {
+            $(".periodo").css("display", "block");
+        }
+
+    });
+
+
+    $("#tipo").keyup(function () {
+
+        if ($("#tipo").val() == "1") {
+            $(".periodo").css("display", "none");
+        }
+
+        if ($("#tipo").val() == "2") {
+            $(".periodo").css("display", "block");
+        }
+    });
+
+    $("#tipo").blur(function (e) {
 
         if ($("#tipo").val() == "1") {
             $(".periodo").css("display", "none");
@@ -195,6 +222,7 @@ $(document).ready(function () {
         }
 
     });
+
 
     $("#btnfiltro").click(function () {
         try {
@@ -225,7 +253,7 @@ $(document).ready(function () {
 
                     tipo = $("#movimento").val();
 
-                    table.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/S").load();
+                    table.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/0/S").load();
                 }
                 else {
 
@@ -244,6 +272,12 @@ $(document).ready(function () {
     });
 
     $("#btnvisualizar").click(function () {
+        try {
+            dados = table.rows('.selec').data();
+            cod = dados[0].mercadoria.id;
+        } catch (error) {
+            cod = 0;
+        }
 
         if (($("#data_inicio").val() < $("#data_fim").val() || $("#data_inicio").val() == $("#data_fim").val()) && $("#data_inicio").val() != '' && $("#data_fim").val() != '') {
 
@@ -268,11 +302,10 @@ $(document).ready(function () {
             FimAno = dataFinal[0];
 
             tipo = $("#movimento").val();
-
-            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/N").load();
+            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/" + cod + "/N").load();
         }
         else {
-            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/Ambos/00-00-0000/00-00-0000/N").load();
+            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/Ambos/00-00-0000/00-00-0000/" + cod + "/N").load();
         }
 
     });
