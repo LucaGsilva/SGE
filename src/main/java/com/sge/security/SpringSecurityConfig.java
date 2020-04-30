@@ -62,6 +62,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Movimentacoes/show/**").authenticated()
 			.antMatchers("/MovimentacaoMotivo/show/**").authenticated()
 			.antMatchers("/Movimentacao").hasRole("PG_MOVIMENTACAO")
+			.antMatchers("/Pedidos/Cancelamento/add").hasRole("PG_PEDIDO_CANCELA")
 			.and()
 			.formLogin()
 			.loginPage("/login").permitAll()

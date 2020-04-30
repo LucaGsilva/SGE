@@ -136,6 +136,7 @@ $(document).ready(function () {
 
 
     var tabela_pedido = $("#tabela_pedido").DataTable();
+    var tabela = $("#tabela").DataTable();
 
     // Chama a função de leitura para executar outras ações na tabela
     $("#tabela").DataTable();
@@ -222,5 +223,40 @@ $(document).ready(function () {
         $("#btncancelar").prop('disabled', true);
 
     };
+
+    $("#btnconfirmacanc").click(function () {
+        var table = $('#tabela_pedido').DataTable();
+
+        var tabela = $('#tabela').DataTable();
+
+        dados = tabela.rows('.selec').data();
+
+        ped = dados[0].id;
+
+
+        $.ajax({
+            url: "/Pedidos/Cancelamento/add",
+            type: "POST",
+            //data: JSON.stringify({nome:nome.value,email:email.value}),
+            data: JSON.stringify({
+
+                id: 0,
+                pedido: { id: ped }
+
+            }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                alert("Dados Gravado");
+            }
+        });
+        setTimeout(function () {
+            LimparTabela();
+            tabela.ajax.reload();
+        }, 140);
+
+        $('.modal-cancelamento').modal('toggle')
+
+    });
 
 });
