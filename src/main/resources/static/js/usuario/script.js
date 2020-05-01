@@ -94,12 +94,14 @@ $(document).ready(function () {
 
 });
 
+$("#btneditar").prop('disabled', true);
+
 function HabilitaBtn() {
-    document.getElementById('btneditar').style.display = "inline-block";
+    $("#btneditar").prop('disabled', false);
 };
 
 function DesabilitaBtn() {
-    document.getElementById('btneditar').style.display = "none";
+    $("#btneditar").prop('disabled', true);
 };
 
 // Chama a função de leitura para executar outras ações na tabela
@@ -361,7 +363,7 @@ $(document).ready(function () {
 
                 if (login == $("#Login").val()) {
                     if (id != cod) {
-                        document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O login já esta em uso';
+                        document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O login já está em uso';
                         $('#modal_validate').modal({
                             show: true
                         })

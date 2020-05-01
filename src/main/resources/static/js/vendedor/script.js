@@ -74,6 +74,8 @@ $(function () {
     });
 });
 
+$("#btneditar").prop('disabled', true);
+
 $(document).ready(function () {
     $('#tabela').dataTable({
         keys: true,
@@ -97,11 +99,11 @@ $(document).ready(function () {
 });
 
 function HabilitaBtn() {
-    document.getElementById('btneditar').style.display = "inline-block";
+    $("#btneditar").prop('disabled', false);
 };
 
 function DesabilitaBtn() {
-    document.getElementById('btneditar').style.display = "none";
+    $("#btneditar").prop('disabled', true);
 };
 
 // Chama a função de leitura para executar outras ações na tabela
