@@ -232,7 +232,7 @@ $(document).ready(function () {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    alert("Dados Gravado");
+
                 }
             });
             DesabilitaBtn();
@@ -264,6 +264,9 @@ $(document).ready(function () {
 
     // Editar cadastro
     $("#btneditar").click(function () {
+        $('#Nome').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        $('#Login').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
+        $('#Password').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
         dados = table.rows('.selec').data();
         $('#Nome').val(dados[0].usuario.nome);
         $('#Login').val(dados[0].usuario.login);
@@ -293,9 +296,11 @@ $(document).ready(function () {
     });
 
     $("#Login").blur(function (e) {
+
         if ($("#Login").val().trim() != '') {
             $('#Login').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
         }
+
 
     });
 
@@ -325,6 +330,17 @@ $(document).ready(function () {
     }
 
     function ValidateLogin() {
+        status = 0;
+        var tabela = $('#tabela').DataTable();
+        dados = table.rows('.selec').data();
+        linhas = tabela.rows('[role=row]').count();
+
+        try {
+            cod = dados[0].usuario.id;
+        } catch (error) {
+            cod = 0
+        }
+
         if ($("#Login").val().trim() == '') {
 
             document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O login deve ser preenchido';
@@ -333,13 +349,40 @@ $(document).ready(function () {
             })
             $(".modal-backdrop").css("backgroud-color", "transparent");
             $('#Login').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
-
-            return false;
+            status = status + 1;
         }
         else {
+
+            for (let index = 0; index < linhas; index++) {
+
+
+                id = tabela.row(index).data().usuario.id
+                login = tabela.row(index).data().usuario.login
+
+                if (login == $("#Login").val()) {
+                    if (id != cod) {
+                        document.getElementsByClassName('Mensagem_modal')[0].innerHTML = '<strong>ATENÇÃO !</strong> O login já esta em uso';
+                        $('#modal_validate').modal({
+                            show: true
+                        })
+                        $(".modal-backdrop").css("backgroud-color", "transparent");
+                        $('#Login').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+                        status = status + 1;
+                    }
+                }
+            }
+        }
+
+        if (status == 0) {
             $('#Login').css("box-shadow", "0 0 0 .2rem rgba(0, 0, 0, 0)");
             return true;
         }
+        else {
+            $('#Login').css("box-shadow", "0 0 0 .2rem rgba(153, 0, 0, 0.445)");
+            return false;
+        }
+
+
     }
 
     function ValidatePassword() {

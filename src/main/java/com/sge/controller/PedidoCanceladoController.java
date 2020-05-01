@@ -67,37 +67,37 @@ public class PedidoCanceladoController {
 
 				List<PedidoItem> ped = new ArrayList<>();
 				ped = RepositorioPedidoItem.findBypedidoId(pedido.getPedido().getId());
+				if (ped.get(0).getPedido().getCancelado() == Enumeracao.N) {
+					pedido.setPedido(ped.get(0).getPedido());
+					pedido.getPedido().setCancelado(Enumeracao.S);
+					RepositorioPedido.save(pedido.getPedido());
 
-				pedido.setPedido(ped.get(0).getPedido());
-				pedido.getPedido().setCancelado(Enumeracao.S);
-				RepositorioPedido.save(pedido.getPedido());
+					for (PedidoItem pedidoItem : ped) {
 
-				for (PedidoItem pedidoItem : ped) {
+						Estoque estoque = new Estoque();
+						Movimentacao movimentacao = new Movimentacao();
 
-					Estoque estoque = new Estoque();
-					Movimentacao movimentacao = new Movimentacao();
+						estoque = RepEst.findByUnicaMercadoria(pedidoItem.getMercadoria().getId());
+						estoque.setQtd_estoque(estoque.getQtd_estoque() + pedidoItem.getQtd());
+						RepEst.save(estoque);
 
-					estoque = RepEst.findByUnicaMercadoria(pedidoItem.getMercadoria().getId());
-
-					estoque.setQtd_estoque(estoque.getQtd_estoque() + pedidoItem.getMercadoria().getQtd());
-					RepEst.save(estoque);
-
-					movimentacao.setMercadoria(pedidoItem.getMercadoria());
-					movimentacao.setQtd(pedidoItem.getQtd());
-					movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
-					movimentacao.setTipo(Enumeracao.Saida);
-					movimentacao.setData(data.getInstance());
-					movimentacao.setAtividade("Retorno mediante a cancelamento - Pedido: " + pedidoItem.getPedido().getId());
-					RepMov.save(movimentacao);
+						movimentacao.setMercadoria(pedidoItem.getMercadoria());
+						movimentacao.setQtd(pedidoItem.getQtd());
+						movimentacao.setEstoque_Atual(estoque.getQtd_estoque());
+						movimentacao.setTipo(Enumeracao.Saida);
+						movimentacao.setData(data.getInstance());
+						movimentacao.setAtividade("Retorno mediante a cancelamento - Pedido: " + pedidoItem.getPedido().getId());
+						RepMov.save(movimentacao);
+					}
+					pedido.setData(data);
+					pedido.setData_cancelamento(data);
+					pedido.setUsuario(usuario);
+					Repositorio.save(pedido);
 				}
-				pedido.setData(data);
-				pedido.setData_cancelamento(data);
-				pedido.setUsuario(usuario);
-				Repositorio.save(pedido);
 			}
 
 		} catch (Exception e) {
-			System.out.println("Erro" + e.getMessage());
+			
 		}
 	}
 }

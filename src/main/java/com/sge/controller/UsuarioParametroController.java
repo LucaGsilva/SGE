@@ -46,22 +46,27 @@ public class UsuarioParametroController {
 	@PostMapping("/add")
 	public void addUser(@RequestBody UsuarioParametro user) {
 
-		if (uservalidate.ValidaUsuario(user.getUsuario())) {
+		try {
 
-			BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+			if (uservalidate.ValidaUsuario(user.getUsuario())) {
 
-			if (user.getUsuario().getPassword() == null
-					|| user.getUsuario().getPassword().equals("******************")) {
+				BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
 
-				String senha = UsuarioRep.findById(user.getUsuario().getId()).get().getPassword();
-				user.getUsuario().setPassword(senha);
+				if (user.getUsuario().getPassword() == null
+						|| user.getUsuario().getPassword().equals("******************")) {
 
-			} else {
+					String senha = UsuarioRep.findById(user.getUsuario().getId()).get().getPassword();
+					user.getUsuario().setPassword(senha);
 
-				user.getUsuario().setPassword(encode.encode(user.getUsuario().getPassword()));
+				} else {
+
+					user.getUsuario().setPassword(encode.encode(user.getUsuario().getPassword()));
+				}
+				UsuarioRep.save(user.getUsuario());
+				rep.save(user);
 			}
-			UsuarioRep.save(user.getUsuario());
-			rep.save(user);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 	}

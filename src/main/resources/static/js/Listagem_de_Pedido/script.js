@@ -183,7 +183,6 @@ $(document).ready(function () {
 
     //Preenche tabela com dados atualizados
     function PreencheTabela() {
-        var table = $('#tabela_pedido').DataTable();
 
         var tabela = $('#tabela').DataTable();
 
@@ -213,8 +212,20 @@ $(document).ready(function () {
 
 
     function HabilitaBtn() {
+
+        var tabela = $('#tabela').DataTable();
+
+        dados = tabela.rows('.selec').data();
+
+        cancelado = dados[0].cancelado;
+
+        if(cancelado == 'N'){
+            $("#btncancelar").prop('disabled', false);
+        }
+        else {
+            $("#btncancelar").prop('disabled', true);
+        }
         $("#btnvisualizar").prop('disabled', false);
-        $("#btncancelar").prop('disabled', false);
 
     };
 
@@ -225,7 +236,6 @@ $(document).ready(function () {
     };
 
     $("#btnconfirmacanc").click(function () {
-        var table = $('#tabela_pedido').DataTable();
 
         var tabela = $('#tabela').DataTable();
 
@@ -247,13 +257,13 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                alert("Dados Gravado");
+                
             }
         });
         setTimeout(function () {
-            LimparTabela();
+            DesabilitaBtn();
             tabela.ajax.reload();
-        }, 140);
+        }, 600);
 
         $('.modal-cancelamento').modal('toggle')
 
