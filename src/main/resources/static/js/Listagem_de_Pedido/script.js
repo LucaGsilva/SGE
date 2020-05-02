@@ -136,7 +136,6 @@ $(document).ready(function () {
 
 
     var tabela_pedido = $("#tabela_pedido").DataTable();
-    var tabela = $("#tabela").DataTable();
 
     // Chama a função de leitura para executar outras ações na tabela
     $("#tabela").DataTable();
@@ -190,7 +189,7 @@ $(document).ready(function () {
 
         codigo = dados[0].id;
 
-        table.ajax.url("/Pedidoitem/show/" + codigo).load();
+        tabela_pedido.ajax.url("/Pedidoitem/show/" + codigo).load();
 
         $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) {
 
@@ -219,7 +218,7 @@ $(document).ready(function () {
 
         cancelado = dados[0].cancelado;
 
-        if(cancelado == 'N'){
+        if (cancelado == 'N') {
             $("#btncancelar").prop('disabled', false);
         }
         else {
@@ -257,7 +256,7 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                
+
             }
         });
         setTimeout(function () {
