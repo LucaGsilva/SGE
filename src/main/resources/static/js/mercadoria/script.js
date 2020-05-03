@@ -273,6 +273,12 @@ $(document).ready(function () {
         $('#Preco').mask('000.000.000.000.000,00', { reverse: true });
         $('#Referencia').val(dados[0].referencia);
         $('#CodBarras').val(dados[0].codBarras);
+
+        if ( dados[0].preco > 99.99) {
+            $('#Preco').val($('#Preco').val() + '00')
+            $('#Preco').unmask();
+            $('#Preco').mask('000.000.000.000.000,00', { reverse: true });
+        }
     });
 
 

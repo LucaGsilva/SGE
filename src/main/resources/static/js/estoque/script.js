@@ -47,7 +47,7 @@ $(function () {
             }
 
             if (dados.movimentacao_Estoque == 'N') {
-                document.getElementById('Movimentacao').style.display = "none";
+                document.getElementById('Menu_Movimentacao').style.display = "none";
             }
 
             if (dados.estoque == 'N' && dados.movimentacao_Estoque == 'N') {
@@ -190,7 +190,6 @@ $(document).ready(function () {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    alert("Dados Gravado");
                 }
             });
             limparMotivo();
@@ -198,11 +197,6 @@ $(document).ready(function () {
         }
     });
 
-    $("#QTD").blur(function (e) {
-
-        validateQuantidade();
-
-    });
 
     function validateMotivo() {
 
@@ -294,7 +288,6 @@ $(document).ready(function () {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    alert("Dados Gravado");
                 }
             });
 
@@ -336,7 +329,7 @@ $(document).ready(function () {
         table.rows("[role=row]").remove().draw(false);
     }
 
-    $("#Movimentacao").click(function (e) {
+    $("#Movimentacao").click(function () {
         Movimentacao();
     });
 
@@ -373,7 +366,7 @@ $(document).ready(function () {
         if ($("#Movimentacao").val() == "Saida") {
             $.getJSON("/MovimentacaoMotivo/show/Saida/", function (dados) {
                 Saida = dados
-
+                console.log(Saida.length)
                 for (let index = 0; index < Saida.length; index++) {
                     $('#Observacao').append('<option>' + Saida[index].motivo + '</option>');
 
