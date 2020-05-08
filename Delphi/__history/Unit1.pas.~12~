@@ -1,0 +1,57 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.SvcMgr, Vcl.Dialogs;
+
+type
+  TSGE = class(TService)
+    procedure ServiceStart(Sender: TService; var Started: Boolean);
+    procedure ServiceStop(Sender: TService; var Stopped: Boolean);
+  private
+    { Private declarations }
+  public
+    function GetServiceController: TServiceController; override;
+    { Public declarations }
+  end;
+
+var
+  SGE: TSGE;
+
+implementation
+
+{$R *.dfm}
+
+procedure ServiceController(CtrlCode: DWord); stdcall;
+begin
+  SGE.Controller(CtrlCode);
+end;
+
+function TSGE.GetServiceController: TServiceController;
+begin
+  Result := ServiceController;
+end;
+
+procedure TSGE.ServiceStart(Sender: TService; var Started: Boolean);
+begin
+  WinExec('C:\xampp\mysql_start.bat', SW_HIDE);
+  WinExec('C:\SGE\sge.exe', SW_HIDE);
+end;
+
+procedure TSGE.ServiceStop(Sender: TService; var Stopped: Boolean);
+var
+  arq: TextFile;
+  linha: String;
+  comando : string;
+begin
+  AssignFile ( arq, 'C:\SGE\bin\pid.cvn');
+  Reset ( arq );
+  ReadLn ( arq, linha );
+  //comando := 'TASKKILL /PID' + linha;
+  WinExec('C:\xampp\mysql_stop.bat', SW_HIDE);
+  WinExec('TASKKILL /PID' + PAnsiChar(AnsiString(linha)), SW_HIDE);
+
+end;
+
+end.

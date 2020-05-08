@@ -1,0 +1,10 @@
+object SGE: TSGE
+  OldCreateOrder = False
+  AllowPause = False
+  DisplayName = 'SGE'
+  ServiceStartName = 'Sistema de Gerenciamento de Estoque'
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Height = 150
+  Width = 215
+end
