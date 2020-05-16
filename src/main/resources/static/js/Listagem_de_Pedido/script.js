@@ -91,7 +91,7 @@ $(document).ready(function () {
         order: [[0, 'desc']],
 
         ajax: {
-            url: "/Pedidos/Novos/show",
+            url: "Listagem-Pedido/show",
             type: "GET",
             dataSrc: ''
         },
@@ -116,7 +116,7 @@ $(document).ready(function () {
 
     $('#tabela_pedido').dataTable({
         ajax: {
-            url: "/Pedidoitem/show/0",
+            url: "Listagem-Pedido/show/0",
             type: "GET",
             dataSrc: ''
         },
@@ -189,9 +189,9 @@ $(document).ready(function () {
 
         codigo = dados[0].id;
 
-        tabela_pedido.ajax.url("/Pedidoitem/show/" + codigo).load();
+        tabela_pedido.ajax.url("Listagem-Pedido/show/" + codigo).load();
 
-        $.getJSON("/Pedidos/Novos/show/" + codigo, function (dados) {
+        $.getJSON("Listagem-Pedido/show/pedido/" + codigo, function (dados) {
 
             $("#finaliza_numero_pedido").val(codigo);
             $("#finaliza_total_liquido").val(dados.valor_liquido);

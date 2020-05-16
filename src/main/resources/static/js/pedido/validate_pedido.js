@@ -80,7 +80,7 @@ $(document).ready(function () {
         if ($('#CodigoMercadoria').val().trim() != '') {
 
             codigo = $('#CodigoMercadoria').val();
-            $.getJSON("/Estoques/show/" + codigo, function (dados, status) {
+            $.getJSON("/Pedidoitem/Mercadorias/show/" + codigo, function (dados, status) {
 
                 if (dados[0] != null) {
                     mercadoria_id = dados[0].mercadoria.id;
@@ -360,7 +360,7 @@ $(document).ready(function () {
             cliente = 0;
         }
 
-        $.getJSON("Clientes/show/" + cliente, function (dados, status) {
+        $.getJSON("Pedidoitem/Clientes/show/" + cliente, function (dados, status) {
 
 
             try {
@@ -405,7 +405,7 @@ $(document).ready(function () {
             vendedor = 0;
         }
 
-        $.getJSON("Vendedores/show/ativo/" + vendedor, function (dados, status) {
+        $.getJSON("Pedidoitem/Vendedores/show/ativo/" + vendedor, function (dados, status) {
 
 
             try {

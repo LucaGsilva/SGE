@@ -59,7 +59,7 @@ $(document).ready(function () {
 
         cliente = $('#CodigoCliente').val();
 
-        $.getJSON("Clientes/show/" + cliente, function (dados, status) {
+        $.getJSON("Pedidoitem/Clientes/show/" + cliente, function (dados, status) {
 
 
             try {
@@ -102,7 +102,7 @@ $(document).ready(function () {
 
         vendedor = $('#CodigoVendedor').val();
 
-        $.getJSON("Vendedores/show/ativo/" + vendedor, function (dados, status) {
+        $.getJSON("Pedidoitem/Vendedores/show/ativo/" + vendedor, function (dados, status) {
 
 
             try {
@@ -146,7 +146,7 @@ $(document).ready(function () {
 
         mercadoria = $('#CodigoMercadoria').val();
 
-        $.getJSON("/Estoques/show/" + mercadoria, function (dados, status) {
+        $.getJSON("Pedidoitem/Mercadorias/show/" + mercadoria, function (dados, status) {
 
 
             try {

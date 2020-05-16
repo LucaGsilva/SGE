@@ -49,20 +49,16 @@ public class Estoque {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Mercadoria getMercadoria() {
 		return mercadoria;
 	}
 
 	public void setMercadoria(Mercadoria mercadoria) {
 		this.mercadoria = mercadoria;
-	}
-
-	public int getQtd_estoque() {
-		return qtd_estoque;
-	}
-
-	public void setQtd_estoque(int qtd_estoque) {
-		this.qtd_estoque = qtd_estoque;
 	}
 
 	public Enumeracao getTipo_Movimentacao() {
@@ -79,6 +75,14 @@ public class Estoque {
 
 	public void setObservacao(String observacao) {
 		Observacao = observacao;
+	}
+
+	public int getQtd_estoque() {
+		return qtd_estoque;
+	}
+
+	public void setQtd_estoque(int qtd_estoque) {
+		this.qtd_estoque = qtd_estoque;
 	}
 
 	public Estoque(Mercadoria mercadoria, Movimentacao movimentacao, int qtd_estoque) {

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sge.model.Enumeracao;
 import com.sge.model.Estoque;
 import com.sge.model.Movimentacao;
+import com.sge.model.Movimentacao_Motivo;
 
 @RestController
 @RequestMapping("/Estoques")
@@ -43,9 +44,17 @@ public class EstoqueController {
 	@Autowired
 	private MovimentacaoRepository RepMovimenta;
 
-	public EstoqueController(MovimentacaoRepository repMovimenta) {
+	@Autowired
+	private Movimentacao_MotivoRepository Repositorio;
+
+	private Movimentacao_MotivoControllerValidate ValidateMovimentacao = new Movimentacao_MotivoControllerValidate();
+
+	public EstoqueController(EstoqueRepository rep, MovimentacaoRepository repMovimenta,
+			Movimentacao_MotivoRepository repositorio) {
 		super();
+		this.rep = rep;
 		RepMovimenta = repMovimenta;
+		Repositorio = repositorio;
 	}
 
 	private EstoqueValidate validate = new EstoqueValidate();
@@ -98,6 +107,19 @@ public class EstoqueController {
 
 	}
 
+	@PostMapping("/MovimentacaoMotivo/add")
+	public void addMotivo(@RequestBody Movimentacao_Motivo motivo) {
+
+		try {
+
+			if (ValidateMovimentacao.Validate(motivo)) {
+				Repositorio.save(motivo);
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
 	@GetMapping("/show")
 	public Iterable<Estoque> show() {
 		return rep.findAll();
@@ -108,6 +130,12 @@ public class EstoqueController {
 
 		return rep.findByMercadoria(cod_mercadoria);
 
+	}
+
+	@GetMapping("/ShowMovimentacao/{tipo}")
+	public Iterable<Movimentacao_Motivo> ShowMovimentacao(@PathVariable(value = "tipo") Enumeracao tipo) {
+
+		return Repositorio.findByTipo(tipo);
 	}
 
 }

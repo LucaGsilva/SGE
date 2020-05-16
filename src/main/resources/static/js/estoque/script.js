@@ -178,7 +178,7 @@ $(document).ready(function () {
 
 
             $.ajax({
-                url: "/MovimentacaoMotivo/add",
+                url: "/Estoques/MovimentacaoMotivo/add",
                 type: "POST",
                 data: JSON.stringify({
 
@@ -352,7 +352,7 @@ $(document).ready(function () {
         $("#Observacao").empty();
 
         if ($("#Movimentacao").val() == "Entrada") {
-            $.getJSON("/MovimentacaoMotivo/show/Entrada/", function (dados) {
+            $.getJSON("/Estoques/ShowMovimentacao/Entrada/", function (dados) {
                 Entrada = dados
 
                 for (let index = 0; index < Entrada.length; index++) {
@@ -364,9 +364,8 @@ $(document).ready(function () {
         }
 
         if ($("#Movimentacao").val() == "Saida") {
-            $.getJSON("/MovimentacaoMotivo/show/Saida/", function (dados) {
+            $.getJSON("/Estoques/ShowMovimentacao/Saida/", function (dados) {
                 Saida = dados
-                console.log(Saida.length)
                 for (let index = 0; index < Saida.length; index++) {
                     $('#Observacao').append('<option>' + Saida[index].motivo + '</option>');
 

@@ -29,12 +29,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sge.model.Cliente;
 import com.sge.model.Enumeracao;
 import com.sge.model.Estoque;
 import com.sge.model.Mercadoria;
 import com.sge.model.Movimentacao;
 import com.sge.model.PedidoItem;
 import com.sge.model.Usuario;
+import com.sge.model.Vendedor;
 
 @RestController()
 @RequestMapping("/Pedidoitem")
@@ -55,15 +57,26 @@ public class PedidoItemController {
 	@Autowired
 	private EstoqueRepository RepEst;
 
-	private PedidoValidate valped = new PedidoValidate();
+	@Autowired
+	private ClienteRepository RepCliente;
+
+	@Autowired
+	private VendedorRepository RepVendedor;
+
+	@Autowired
+	private EstoqueRepository RepEstoque;
 
 	public PedidoItemController(PedidoRepository pedRep, UsuarioParametroRepositiry userRep,
-			MovimentacaoRepository repMov, EstoqueRepository repEst) {
+			MovimentacaoRepository repMov, EstoqueRepository repEst, ClienteRepository repCliente,
+			VendedorRepository repVendedor, EstoqueRepository repEstoque) {
 		super();
 		PedRep = pedRep;
 		this.userRep = userRep;
 		RepMov = repMov;
 		RepEst = repEst;
+		RepCliente = repCliente;
+		RepVendedor = repVendedor;
+		RepEstoque = repEstoque;
 	}
 
 	@PostMapping("/add")
@@ -171,9 +184,37 @@ public class PedidoItemController {
 	}
 
 	@GetMapping("/show/{pedido}")
-	public Iterable<PedidoItem> show(@PathVariable(value = "pedido") long pedido) {
+	public Iterable<PedidoItem> showPedido(@PathVariable(value = "pedido") long pedido) {
 		return Repitem.findBypedido(pedido);
-
 	}
 
+	@GetMapping("Clientes/show")
+	public Iterable<Cliente> ClienteShow() {
+		return RepCliente.findAll();
+	}
+
+	@GetMapping("Clientes/show/{cliente}")
+	public Iterable<Cliente> ClienteShowCodigo(@PathVariable(value = "cliente") long cliente) {
+		return RepCliente.findById(cliente);
+	}
+
+	@GetMapping("Mercadorias/show")
+	public Iterable<Estoque> MercadoriaShow() {
+		return RepEstoque.findAll();
+	}
+
+	@GetMapping("Mercadorias/show/{mercadoria}")
+	public Iterable<Estoque> MercadoriaShowCodigo(@PathVariable(value = "mercadoria") long mercadoria) {
+		return RepEstoque.findByMercadoria(mercadoria);
+	}
+
+	@GetMapping("Vendedores/show/ativo")
+	public Iterable<Vendedor> VendedorShow() {
+		return RepVendedor.findByAtivo();
+	}
+
+	@GetMapping("Vendedores/show/ativo/{vendedor}")
+	public Iterable<Vendedor> VendedorShowCodigo(@PathVariable(value = "vendedor") long vendedor) {
+		return RepVendedor.findByAtivo(vendedor);
+	}
 }

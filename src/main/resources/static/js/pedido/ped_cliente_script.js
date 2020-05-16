@@ -5,7 +5,7 @@ $(document).ready(function () {
         "searching": true,
         "keys": true,
         ajax: {
-            url: "/Clientes/show/",
+            url: "/Pedidoitem/Clientes/show/",
             type: "GET",
             dataSrc: ''
         },

@@ -100,10 +100,12 @@ $(document).ready(function () {
 
 function HabilitaBtn() {
     $("#btneditar").prop('disabled', false);
+    $("#btnnovo").prop('disabled', true);
 };
 
 function DesabilitaBtn() {
     $("#btneditar").prop('disabled', true);
+    $("#btnnovo").prop('disabled', false);
 };
 
 // Chama a função de leitura para executar outras ações na tabela
