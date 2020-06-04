@@ -49,6 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/Listagem-Pedido**/**").hasRole("PG_PEDIDO_LISTAGEM")
 			.antMatchers("/Titulo/Aberto**/**").hasRole("PG_TITULO_ABERTO")
 			.antMatchers("/Titulo/Liquidado**/**").hasRole("PG_TITULO_LIQUIDADO")
+			.antMatchers("/Movimentacao**/**").hasRole("PG_MOVIMENTACAO")
 			.antMatchers("/Movimentacoes**/**").hasRole("PG_MOVIMENTACAO")
 			.antMatchers("/MovimentacaoMotivo**/**").hasRole("PG_MOVIMENTACAO")
 			.antMatchers("/Pedidos/Cancelamento/add").hasRole("PG_PEDIDO_CANCELA")

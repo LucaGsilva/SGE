@@ -63,7 +63,6 @@ public class EstoqueController {
 	public void addEstoque(@RequestBody Estoque estoque) {
 
 		Calendar data = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-
 		if (rep.VerificaMercadoria(estoque.getMercadoria().getId()) != null) {
 			if (validate.Validate(estoque)) {
 
@@ -94,7 +93,7 @@ public class EstoqueController {
 					est.setQtd_estoque(est.getQtd_estoque() - estoque.getQtd_estoque());
 					rep.save(est);
 
-					movimentacao.setTipo(Enumeracao.Entrada);
+					movimentacao.setTipo(Enumeracao.Saida);
 					movimentacao.setData(data.getInstance());
 					movimentacao.setEstoque_Atual(est.getQtd_estoque());
 					movimentacao.setMercadoria(estoque.getMercadoria());

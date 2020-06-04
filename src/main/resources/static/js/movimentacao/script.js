@@ -81,7 +81,7 @@ $(document).ready(function () {
             editorKeys: 'tab-only'
         },
         ajax: {
-            url: "/Movimentacoes/show/grupo",
+            url: "/Movimentacoes/show/grupo/Ambos",
             type: "GET",
             dataSrc: ''
         },
@@ -101,7 +101,7 @@ $(document).ready(function () {
             editorKeys: 'tab-only'
         },
         ajax: {
-            url: "/Movimentacoes/show/grupo",
+            url: "/Movimentacoes/show/grupo/Ambos",
             type: "GET",
             dataSrc: ''
         },
@@ -230,7 +230,12 @@ $(document).ready(function () {
 
 
     $("#btnfiltro").click(function () {
+
+        $("#btnvisualizar").prop('disabled', true);
+
         try {
+
+            tipo = $("#movimento").val();
 
             if ($("#tipo").val() == 2) {
 
@@ -256,8 +261,6 @@ $(document).ready(function () {
                     FimMes = dataFinal[1] + "-";
                     FimAno = dataFinal[0];
 
-                    tipo = $("#movimento").val();
-
                     table.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/0/S").load();
                 }
                 else {
@@ -267,7 +270,7 @@ $(document).ready(function () {
             }
             else {
 
-                table.ajax.url("/Movimentacoes/show/grupo").load();
+                table.ajax.url("/Movimentacoes/show/grupo/" + tipo).load();
             }
 
         } catch (error) {
@@ -280,6 +283,7 @@ $(document).ready(function () {
         try {
             dados = table.rows('.selec').data();
             cod = dados[0].mercadoria.id;
+            tipo = $("#movimento").val();
         } catch (error) {
             cod = 0;
         }
@@ -306,11 +310,10 @@ $(document).ready(function () {
             FimMes = dataFinal[1] + "-";
             FimAno = dataFinal[0];
 
-            tipo = $("#movimento").val();
             tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/" + tipo + "/" + IniDia + IniMes + IniAno + "/" + FimDia + FimMes + FimAno + "/" + cod + "/N").load();
         }
         else {
-            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/Ambos/00-00-0000/00-00-0000/" + cod + "/N").load();
+            tabelaMovimentacao.ajax.url("/Movimentacoes/show/filter/" + tipo + "/00-00-0000/00-00-0000/" + cod + "/N").load();
         }
 
     });

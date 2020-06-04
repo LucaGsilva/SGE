@@ -283,7 +283,6 @@ $(document).ready(function () {
                     observacao: Obs,
                     mercadoria: { id: mercadoria_id },
                     qtd_estoque: estoque,
-
                 }),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
